@@ -1,34 +1,58 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
-  "engines": {
-    "node": "14.x"
-  },
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "publish": "git push heroku main",
-    "watch": "heroku local web",
-    "test": "node test.js"
-  },
-  "dependencies": {
-    "ejs": "^3.1.5",
-    "express": "^4.15.2",
-    "express-oauth-server": "^2.0.0"
-  },
-  "devDependencies": {
-    "got": "^11.3.0",
-    "tape": "^4.7.0"
-  },
+  "name": "oauth2orize-authorization-server",
+  "version": "6.3.4",
+  "author": "Frank Hassanabad <frankhassanabad@gmail.com>",
+  "description": "OAuth2 security recipes and examples based on OAuth2orize",
+  "license": "MIT",
+  "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/FrankHassanabad/Oauth2orizeRecipes.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.9.x",
+    "connect-ensure-login": "^0.1.x",
+    "cookie-parser": "^1.3.x",
+    "ejs": "^2.5.x",
+    "express": "^4.10.x",
+    "express-session": "^1.9.x",
+    "jsonwebtoken": "^7.2.1",
+    "oauth2orize": "^1.0.x",
+    "passport": "^0.3.x",
+    "passport-http": "^0.3.x",
+    "passport-http-bearer": "^1.0.x",
+    "passport-local": "^1.0.x",
+    "passport-oauth2-client-password": "^0.1.x",
+    "uuid": "^3.0.1"
+  },
+  "scripts": {
+    "lint": "eslint *.js config db test",
+    "start": "node app.js",
+    "test": "mocha test test/db test/config",
+    "test:watch": "npm run test -- --watch",
+    "test:integration": "mocha test/integration"
+  },
+  "engines": {
+    "node": ">=6.7.0",
+    "npm": ">=3.10.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.10.x",
+    "eslint-config-airbnb": "^13.0.x",
+    "eslint-plugin-import": "^2.2.x",
+    "eslint-plugin-jsx-a11y": "^2.2.x",
+    "eslint-plugin-react": "^6.7.x",
+    "mocha": "^3.2.x",
+    "es6-promisify": "^5.0.x",
+    "request": "^2.48.x",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
   },
   "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+    "authentication",
+    "oauth2",
+    "security",
+    "passport"
+  ]
 }
