@@ -23,7 +23,7 @@ app.oauth = new OAuthServer({
     getClient(clientId, clientSecret) {
       console.log('getClient');
       return {
-        id: '1',
+        id: 'volvohack',
         redirectUris: ['https://localhost:5001'],
         grants: ['authorization_code']
       };
@@ -37,7 +37,7 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.get('/auth', (req, res) => {
+app.get('/', (req, res) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(app.oauth.authorize());
