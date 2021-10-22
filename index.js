@@ -28,6 +28,8 @@ const OAuthServer = require('express-oauth-server');
 app.oauth = new OAuthServer({
   model: {
     getClient(clientId, clientSecret) {
+      console.log('getClient');
+
       if (clientId !== credentials.clientId) return;
       if (clientSecret !== credentials.clientSecret) return;
 
