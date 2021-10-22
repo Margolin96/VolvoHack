@@ -32,7 +32,7 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.get('/auth', (req, res) => {
+app.get('/', (req, res) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(app.oauth.authorize());
