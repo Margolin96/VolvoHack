@@ -12,7 +12,7 @@ app
 //   .use(express.static(path.join(__dirname, 'public')))
 //   .set('views', path.join(__dirname, 'views'))
 //   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.send('index'))
+  // .get('/', (req, res) => res.send('index'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 const bodyParser = require('body-parser');
@@ -48,15 +48,7 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.get('/auth', (req, res) => {
-  console.log('/auth')
-});
-app.use('/auth', bodyParser.json());
-app.use('/auth', bodyParser.urlencoded({ extended: false }));
-app.use('/auth', app.oauth.authorize());
-app.use('/auth', (req, res) => {
-  res.send('/auth');
-});
+app.get('/auth', app.oauth.authorize());
 
 app.get('/token', (req, res) => {
   res.send('token');
