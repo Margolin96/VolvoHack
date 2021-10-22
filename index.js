@@ -49,16 +49,14 @@ app.oauth = new OAuthServer({
 });
 
 app.get('/auth', (req, res) => {
-  console.log('/auth');
-
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(app.oauth.authorize());
-
-  app.use(function(req, res) {
-    res.send('Secret area');
+  console.log('/auth')
+})
+  .get(bodyParser.json())
+  .get(bodyParser.urlencoded({ extended: false }))
+  .get(app.oauth.authorize())
+  .get((req, res) => {
+    res.send('/auth');
   });
-});
 
 app.get('/token', (req, res) => {
   res.send('token');
