@@ -85,9 +85,9 @@ class VolvoApi {
   /**
    * Checks if there are any warnings requiring human involvement: danger tyre status,
    * engine coolant, oil pressure, bulb failure etc
-   * @returns {boolean} true if open
+   * @returns {boolean} true if there is any warning
    */
-  isAnyWarnings() {
+  isAnyWarning() {
     throw new Error('Not implemented'); // TODO API call
   }
 }
