@@ -28,13 +28,13 @@ const OAuthServer = require('express-oauth-server');
 app.oauth = new OAuthServer({
   model: {
     getClient(clientId, clientSecret) {
-      console.log('getClient');
+      console.log('getClient', clientId, clientSecret);
 
       if (clientId !== credentials.clientId) return;
       if (clientSecret !== credentials.clientSecret) return;
 
       return {
-        id: clientId,
+        clientId,
         redirectUris: ['https://social.yandex.net/broker/redirect'],
         grants: ['authorization_code']
       };
@@ -48,7 +48,8 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.get('/auth', app.oauth.authorize());
+app.use('/auth', sniff);
+app.use('/auth', app.oauth.authorize());
 
 app.get('/token', (req, res) => {
   res.send('token');
@@ -57,3 +58,7 @@ app.get('/token', (req, res) => {
 app.get('/refresh', (req, res) => {
   res.send('refresh');
 });
+
+function sniff(req, res) {
+  console.log('[sniff]', req, res);
+}
