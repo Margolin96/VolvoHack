@@ -50,13 +50,13 @@ app.oauth = new OAuthServer({
 
 app.get('/auth', (req, res) => {
   console.log('/auth')
-})
-  .get(bodyParser.json())
-  .get(bodyParser.urlencoded({ extended: false }))
-  .get(app.oauth.authorize())
-  .get((req, res) => {
-    res.send('/auth');
-  });
+});
+app.use('/auth', bodyParser.json());
+app.use('/auth', bodyParser.urlencoded({ extended: false }));
+app.use('/auth', app.oauth.authorize());
+app.use('/auth', (req, res) => {
+  res.send('/auth');
+});
 
 app.get('/token', (req, res) => {
   res.send('token');
