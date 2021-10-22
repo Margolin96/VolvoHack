@@ -32,7 +32,7 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.get('/', (req, res) => {
+app.get('/auth', (req, res) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(app.oauth.authorize());
@@ -40,4 +40,12 @@ app.get('/', (req, res) => {
   app.use(function(req, res) {
     res.send('Secret area');
   });
+});
+
+app.get('/token', (req, res) => {
+  res.send('token');
+});
+
+app.get('/refresh', (req, res) => {
+  res.send('refresh');
 })
