@@ -10,11 +10,6 @@ app
 //   .get('/', (req, res) => res.render('pages/index'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-app.get('/auth', (req, res) => {
-  res.send('test');
-})
-
-
 const bodyParser = require('body-parser');
 const OAuthServer = require('express-oauth-server');
 
@@ -37,7 +32,7 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.get('/', (req, res) => {
+app.get('/auth', (req, res) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(app.oauth.authorize());
