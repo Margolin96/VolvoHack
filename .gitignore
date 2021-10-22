@@ -11,3 +11,4 @@ package-lock.json
 # Docker
 Dockerfile
 docker-compose.yml
+/.idea/
