@@ -18,6 +18,13 @@ app
 const bodyParser = require('body-parser');
 const OAuthServer = require('express-oauth-server');
 
+// auth
+//   ?scope=yandex-home
+//   &state=https%3A%2F%2Fsocial.yandex.ru%2Fbroker2%2Fauthz_in_web%2F10a7c327f0b04577a31b4f78b0091553%2Fcallback
+//   &redirect_uri=https%3A%2F%2Fsocial.yandex.net%2Fbroker%2Fredirect
+//   &response_type=code
+//   &client_id=volvohack
+
 app.oauth = new OAuthServer({
   model: {
     getClient(clientId, clientSecret) {
@@ -26,7 +33,7 @@ app.oauth = new OAuthServer({
 
       return {
         id: clientId,
-        redirectUris: ['https://localhost:5001'],
+        redirectUris: ['https://social.yandex.net/broker/redirect'],
         grants: ['authorization_code']
       };
     },
