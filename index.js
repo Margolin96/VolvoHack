@@ -3,6 +3,11 @@ const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
+const credentials = {
+  clientId: 'volvohack',
+  clientSecret: 'TtLy5iPbB3jdXR29pUfeuMfPgfC4wznQ'
+};
+
 app
 //   .use(express.static(path.join(__dirname, 'public')))
 //   .set('views', path.join(__dirname, 'views'))
@@ -16,9 +21,11 @@ const OAuthServer = require('express-oauth-server');
 app.oauth = new OAuthServer({
   model: {
     getClient(clientId, clientSecret) {
-      console.log('getClient');
+      if (clientId !== credentials.clientId) return;
+      if (clientSecret !== credentials.clientSecret) return;
+
       return {
-        id: 'volvohack',
+        id: clientId,
         redirectUris: ['https://localhost:5001'],
         grants: ['authorization_code']
       };
