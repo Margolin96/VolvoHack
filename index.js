@@ -47,8 +47,6 @@ app.oauth = new OAuthServer({
 });
 
 app.get('/auth', (req, res) => {
-  res.send('auth');
-
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(app.oauth.authorize());
