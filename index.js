@@ -10,9 +10,9 @@ app
 //   .get('/', (req, res) => res.render('pages/index'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-// app.get('/auth', (req, res) => {
-//   res.send('test');
-// })
+app.get('/auth', (req, res) => {
+  res.send('test');
+})
 
 
 const bodyParser = require('body-parser');
