@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const path = require('path');
+// const path = require('path');
 const PORT = process.env.PORT || 5000;
 
 const credentials = {
@@ -31,7 +31,7 @@ app.oauth = new OAuthServer({
       console.log('getClient', clientId, clientSecret);
 
       if (clientId !== credentials.clientId) return;
-      if (clientSecret !== credentials.clientSecret) return;
+      // if (clientSecret !== credentials.clientSecret) return;
 
       return {
         clientId,
@@ -48,7 +48,9 @@ app.oauth = new OAuthServer({
   }
 });
 
-app.use('/auth', sniff);
+app.post('/auth', (req, res) => {
+  console.log('/auth', req.body);
+});
 app.use('/auth', app.oauth.authorize());
 
 app.get('/token', (req, res) => {
@@ -59,6 +61,7 @@ app.get('/refresh', (req, res) => {
   res.send('refresh');
 });
 
-function sniff(req, res) {
+function sniff(req, res, next) {
   console.log('[sniff]', req, res);
+  next();
 }
