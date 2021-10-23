@@ -99,7 +99,7 @@ const findOnOffCapability = (deviceData) => {
  * @returns {object} new state results object in Yandex format
  */
 exports.setOnOffDevicesStates = (requestId, data) => {
-  const newDeviceStates = data.payload.devices
+  const newDeviceStates = data.payload ? data.payload.devices : []
     .map(d => findOnOffCapability(d))
     .filter(d => !!d);
 
