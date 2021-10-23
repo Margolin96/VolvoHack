@@ -1,9 +1,26 @@
-const utils = require('../oauth/utils');
-const request = require('request');
+// const utils = require('../oauth/utils');
+// const request = require('request');
 
-module.exports = (app) => {
+const mock = require('./mock.json');
+
+module.exports.call = (url, method = 'get') => {
+  const _method = method.toLowerCase();
+
+  if (!(url in mock.paths)) throw new Error('No such url');
+  if (!(_method in mock.paths[url])) throw new Error('No such method');
+
+  const responses = mock.paths[url][_method].responses['200'].content;
+  return Object.entries(responses)[0][1].example.data;
+};
+
+module.exports.routes = (app) => {
   app.get('/volvo/*', (req, res) => {
-    const methodUrl = req.url.replace('/volvo/', '');
+    const url = req.url.replace('/volvo', '');
+    const method = req.method.toLowerCase();
+
+    res.send(module.exports.call(url, method, req.body));
+
+    /*
     const volvoReq = {
       method: req.method,
       form: req.body,
@@ -26,5 +43,6 @@ module.exports = (app) => {
       console.log(methodUrl, response.body);
       res.send(response.body);
     });
+    */
   });
 };

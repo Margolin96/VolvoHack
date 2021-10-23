@@ -6,7 +6,7 @@ const app = express();
 
 require('./oauth/')(app);
 require('./keepalive')(app);
-require('./volvo/api')(app);
+require('./volvo/api').routes(app);
 require('./alice/')(app);
 
 const PORT = process.env.PORT || 5000;

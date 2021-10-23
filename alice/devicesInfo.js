@@ -1,4 +1,4 @@
-const getClimatizationDevice = (vin, vehicleName) => ({
+const getClimatizationDevice = async (vin, vehicleName) => ({
   id: `${vin}_climatization`,
   type: 'devices.types.thermostat',
   name: 'Обогрев в машине',
@@ -26,7 +26,7 @@ const getClimatizationDevice = (vin, vehicleName) => ({
   ],
 });
 
-const getEngineDevice = (vin, vehicleName) => ({
+const getEngineDevice = async (vin, vehicleName) => ({
   id: `${vin}_engine`,
   type: 'devices.types.other',
   name: 'Машина',
@@ -54,7 +54,7 @@ const getEngineDevice = (vin, vehicleName) => ({
   ],
 });
 
-const getCentralLockDevice = (vin, vehicleName) => ({
+const getCentralLockDevice = async (vin, vehicleName) => ({
   id: `${vin}_lock`,
   type: 'devices.types.openable',
   name: 'Замок в машине',
@@ -71,7 +71,7 @@ const getCentralLockDevice = (vin, vehicleName) => ({
   ],
 });
 
-const getHonkAndFlashDevice = (vin, vehicleName) => ({
+const getHonkAndFlashDevice = async (vin, vehicleName) => ({
   id: `${vin}_flash`,
   type: 'devices.types.light',
   name: 'Фары и сигнал машине',
@@ -94,9 +94,9 @@ const getHonkAndFlashDevice = (vin, vehicleName) => ({
  * @param {string} vehicleName vehicle name
  * @returns {array} all device objects list
  */
-exports.getVehicleDevices = (vin, vehicleName) => [
-  getEngineDevice(vin, vehicleName),
-  getClimatizationDevice(vin, vehicleName),
-  getCentralLockDevice(vin, vehicleName),
-  getHonkAndFlashDevice(vin, vehicleName),
+exports.getVehicleDevices = async (vin, vehicleName) => [
+  await getEngineDevice(vin, vehicleName),
+  await getClimatizationDevice(vin, vehicleName),
+  await getCentralLockDevice(vin, vehicleName),
+  await getHonkAndFlashDevice(vin, vehicleName),
 ];

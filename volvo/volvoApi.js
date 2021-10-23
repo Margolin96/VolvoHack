@@ -1,4 +1,4 @@
-const request = require('request');
+const { call: volvoCall } = require('./api');
 
 let token = '';
 let apiKey = '';
@@ -28,10 +28,7 @@ exports.init = () => {
  * Get all vehicles for current user, single user supported for demo
  * @returns {{vin: string, name: string}[]} vehicles list
  */
-exports.listAllVehicles = async () => {
-  const response = await request('/volvo/v1/vehicles');
-  console.log(response);
-  return response;
+exports.listAllVehicles = async () => await volvoCall('/v1/vehicles');
   // GET - https://api.volvocars.com/connected-vehicle/v1/vehicles
   // TODO API call
   // for each VIN — GET - https://api.volvocars.com/connected-vehicle/v1/vehicles/{vin}
@@ -41,7 +38,6 @@ exports.listAllVehicles = async () => {
   //     name: 'XC60', // data.descriptions.model + ' ' + data.externalColour
   //   },
   // ];
-};
 
 /**
  * Get vehicle parameters object
