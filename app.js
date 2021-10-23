@@ -1,20 +1,23 @@
 'use strict';
 
+require('dotenv').config();
+
 const bodyParser = require('body-parser');
-const client = require('./client');
+const client = require('./oauth/client');
 const cookieParser = require('cookie-parser');
 const config = require('./config');
-const db = require('./db');
+const db = require('./oauth/db');
 const express = require('express');
 const expressSession = require('express-session');
 // const fs             = require('fs');
 // const https          = require('https');
-const oauth2 = require('./oauth2');
+const oauth2 = require('./oauth/oauth2');
 const passport = require('passport');
 const path = require('path');
 const site = require('./site');
-const token = require('./token');
-const user = require('./user');
+const token = require('./oauth/token');
+const user = require('./oauth/user');
+const utils = require('./oauth/utils');
 
 console.log('Using MemoryStore for the data store');
 console.log('Using MemoryStore for the Session');
@@ -41,7 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport configuration
-require('./auth');
+require('./oauth/auth');
 
 app.get('/', site.index);
 app.get('/login', site.loginForm);
@@ -97,8 +100,8 @@ setInterval(() => {
 // openssl req -new -key privatekey.pem -out certrequest.csr
 // openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
 // const options = {
-//   key  : fs.readFileSync(path.join(__dirname, 'certs/privatekey.pem')),
-//   cert : fs.readFileSync(path.join(__dirname, 'certs/certificate.pem')),
+//   key  : process.env.certs_private_key,
+//   cert : process.env.certs_certificate,
 // };
 
 // Create our HTTPS server listening on port 3000.
@@ -121,4 +124,51 @@ setInterval(() => {
 app.get('/wakeup-bro', (req, res) => {
   console.log('[keepalive]: Thanks Bro!');
   res.send('I\'m OK!');
+});
+
+app.get('/volvo/*', (req, res) => {
+  const methodUrl = req.url.replace('/volvo/', '');
+  const volvoReq = {
+    method: req.method,
+    form: req.body,
+    uri: `https://api.volvocars.com/connected-vehicle/${methodUrl}`,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Expose-Headers': '*',
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${utils.createToken()}`,
+    },
+  };
+
+  request(volvoReq, (error, response) => {
+    if (error) {
+      console.log(methodUrl, error);
+      res.send(error);
+    }
+    console.log(methodUrl, response.body);
+    res.send(response.body);
+  });
+});
+
+app.get('/alisa/v1.0', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.post('/alisa/v1.0/user/devices/action', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.post('/alisa/v1.0/user/devices/query', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.post('/alisa/v1.0/user/unlink', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.get('/alisa/v1.0/user/devices', (req, res) => {
+  console.log(req);
+  res.status(200).send();
 });
