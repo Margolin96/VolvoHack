@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-console.log(process.env);
-
 const state = {
   fuelLevel: 30,
   engineStarted: false,
