@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-process.env.mock = true;
-
 const state = {
   fuelLevel: 30,
   engineStarted: false,

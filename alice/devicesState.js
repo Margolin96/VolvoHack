@@ -1,8 +1,8 @@
 const api = require('../volvo/volvoApi');
 
-const getClimatizationState = (vin) => {
-  const isClimatizationOn = api.isClimatizationOn(vin);
-  const outsideTemperature = api.getOutsideTemperature(vin);
+const getClimatizationState = async (vin) => {
+  const isClimatizationOn = await api.isClimatizationOn(vin);
+  const outsideTemperature = await api.getOutsideTemperature(vin);
   return {
     id: `${vin}_climatization`,
     capabilities: [
@@ -26,9 +26,9 @@ const getClimatizationState = (vin) => {
   };
 };
 
-const getEngineState = (vin) => {
-  const isEngineOn = api.isEngineStarted(vin);
-  const fuelLevelPercent = api.getFuelPercent(vin);
+const getEngineState = async (vin) => {
+  const isEngineOn = await api.isEngineStarted(vin);
+  const fuelLevelPercent = await api.getFuelPercent(vin);
   return {
     id: `${vin}_engine`,
     capabilities: [
@@ -52,8 +52,8 @@ const getEngineState = (vin) => {
   };
 };
 
-const getCentralLockState = (vin) => {
-  const isVehicleLocked = api.isVehicleLocked(vin);
+const getCentralLockState = async (vin) => {
+  const isVehicleLocked = await api.isVehicleLocked(vin);
   return {
     id: `${vin}_lock`,
     capabilities: [
@@ -68,8 +68,8 @@ const getCentralLockState = (vin) => {
   };
 };
 
-const getFlashState = (vin) => {
-  const isFlashOn = api.isFlashOn(vin);
+const getFlashState = async (vin) => {
+  const isFlashOn = await api.isFlashOn(vin);
   return {
     id: `${vin}_flash`,
     capabilities: [
@@ -84,17 +84,17 @@ const getFlashState = (vin) => {
   };
 };
 
-const getDeviceState = (deviceId) => {
+const getDeviceState = async (deviceId) => {
   const [vin, deviceType] = deviceId.split('_');
   switch (deviceType) {
     case 'climatization':
-      return getClimatizationState(vin);
+      return await getClimatizationState(vin);
     case 'engine':
-      return getEngineState(vin);
+      return await getEngineState(vin);
     case 'lock':
-      return getCentralLockState(vin);
+      return await getCentralLockState(vin);
     case 'flash':
-      return getFlashState(vin);
+      return await getFlashState(vin);
     default:
       throw new Error(`Unknown device type: ${deviceType}`);
   }
