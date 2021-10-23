@@ -50,6 +50,15 @@ exports.init = () => {
   inited = true;
 };
 
+exports.addFuel = async () => {
+  state.fuelLevel += 5;
+  state.fuelLevel = Math.min(state.fuelTankCapacity, state.fuelLevel);
+};
+exports.subtractFuel = async () => {
+  state.fuelLevel -= 5;
+  state.fuelLevel = Math.max(0, state.fuelLevel);
+};
+
 /**
  * Get all vehicles for current user, single user supported for demo
  * @returns {{vin: string, name: string}[]} vehicles list

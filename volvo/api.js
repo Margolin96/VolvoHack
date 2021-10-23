@@ -70,4 +70,16 @@ module.exports.routes = (app) => {
       ? module.exports.call(url, method, data)
       : await module.exports.api(url, method, data));
   });
+
+  app.get('/addFuel', async (req, res) => {
+    const { addFuel } = require('./volvoApi');
+    addFuel();
+    res.status(200).send();
+  });
+
+  app.get('/subtractFuel', async (req, res) => {
+    const { subtractFuel } = require('./volvoApi');
+    subtractFuel();
+    res.status(200).send();
+  });
 };
