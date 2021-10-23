@@ -71,7 +71,8 @@ module.exports = class {
    * @returns {void} nothing
    */
   honkAndFlash() {
-    throw new Error('Not implemented'); // TODO API call
+    return Math.random() < 0.5;
+    // throw new Error('Not implemented'); // TODO API call
   }
 
   /**
