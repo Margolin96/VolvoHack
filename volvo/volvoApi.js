@@ -66,7 +66,8 @@ exports.getFuelPercent = (vin) => {
  * @returns {number} outside temperature in celcius
  */
 exports.getOutsideTemperature = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.ceil(Math.random() * 30);
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -75,7 +76,8 @@ exports.getOutsideTemperature = (vin) => {
  * @returns {boolean} true if climatization on
  */
 exports.isClimatizationOn = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -84,7 +86,8 @@ exports.isClimatizationOn = (vin) => {
  * @returns {void} nothing
  */
 exports.turnOnClimatization = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -93,7 +96,8 @@ exports.turnOnClimatization = (vin) => {
  * @returns {void} nothing
  */
 exports.turnOffClimatization = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -102,7 +106,8 @@ exports.turnOffClimatization = (vin) => {
  * @returns {boolean} true if locked
  */
 exports.isVehicleLocked = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -111,7 +116,8 @@ exports.isVehicleLocked = (vin) => {
  * @returns {void} nothing
  */
 exports.lockVehicle = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -120,7 +126,8 @@ exports.lockVehicle = (vin) => {
  * @returns {void} nothing
  */
 exports.unlockVehicle = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -129,7 +136,8 @@ exports.unlockVehicle = (vin) => {
  * @returns {boolean} true if started
  */
 exports.isEngineStarted = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -138,7 +146,8 @@ exports.isEngineStarted = (vin) => {
  * @returns {void} nothing
  */
 exports.startEngine = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -147,7 +156,8 @@ exports.startEngine = (vin) => {
  * @returns {void} nothing
  */
 exports.stopEngine = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -156,7 +166,8 @@ exports.stopEngine = (vin) => {
  * @returns {void} nothing
  */
 exports.honkAndFlash = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -165,7 +176,8 @@ exports.honkAndFlash = (vin) => {
  * @returns {boolean} true if open
  */
 exports.isAnyDoorOrWindowOpen = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
 
 /**
@@ -175,5 +187,6 @@ exports.isAnyDoorOrWindowOpen = (vin) => {
  * @returns {boolean} true if there is any warning
  */
 exports.isAnyWarning = (vin) => {
-  throw new Error('Not implemented'); // TODO API call
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
 };
