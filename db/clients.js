@@ -22,8 +22,8 @@
 const clients = [{
   id            : '1',
   name          : 'Yandex.Home',
-  clientId      : 'volvohack',
-  clientSecret  : '5AvHtu5fSclc9iAgUP7JcCmk9u94IZI2',
+  clientId      : process.env['yandex.clientId'],
+  clientSecret  : process.env['yandex.clientSecret'],
 }];
 
 /**
