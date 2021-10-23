@@ -42,7 +42,7 @@
                   "operationId": "string",
                   "data": [
                     {
-                      "vin": "{vin}"
+                      "vin": "vin"
                     }
                   ],
                   "pagination": {
@@ -183,7 +183,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}": {
+    "/v1/vehicles/vin": {
       "get": {
         "tags": [
           "Vehicle-Details"
@@ -369,7 +369,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/brakes": {
+    "/v1/vehicles/vin/brakes": {
       "get": {
         "tags": [
           "GetBrakeStatus"
@@ -547,7 +547,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands": {
+    "/v1/vehicles/vin/commands": {
       "get": {
         "tags": [
           "Command-List"
@@ -725,7 +725,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/climatization-start": {
+    "/v1/vehicles/vin/commands/climatization-start": {
       "post": {
         "tags": [
           "Invoke-Climatization-Start"
@@ -913,7 +913,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/climatization-stop": {
+    "/v1/vehicles/vin/commands/climatization-stop": {
       "post": {
         "tags": [
           "Invoke-Climatization-Stop"
@@ -1101,7 +1101,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/engine-start": {
+    "/v1/vehicles/vin/commands/engine-start": {
       "post": {
         "tags": [
           "Invoke-Engine-Start"
@@ -1296,7 +1296,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/engine-stop": {
+    "/v1/vehicles/vin/commands/engine-stop": {
       "post": {
         "tags": [
           "Invoke-Engine-Stop"
@@ -1484,7 +1484,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/flash": {
+    "/v1/vehicles/vin/commands/flash": {
       "post": {
         "tags": [
           "Invoke-Flash"
@@ -1672,7 +1672,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/honk": {
+    "/v1/vehicles/vin/commands/honk": {
       "post": {
         "tags": [
           "Invoke-Honk"
@@ -1860,7 +1860,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/honk-flash": {
+    "/v1/vehicles/vin/commands/honk-flash": {
       "post": {
         "tags": [
           "Invoke-HonkAndFlash"
@@ -2048,7 +2048,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/lock": {
+    "/v1/vehicles/vin/commands/lock": {
       "post": {
         "tags": [
           "Invoke-Lock"
@@ -2236,7 +2236,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/unlock": {
+    "/v1/vehicles/vin/commands/unlock": {
       "post": {
         "tags": [
           "Invoke-Unlock"
@@ -2431,7 +2431,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/diagnostics": {
+    "/v1/vehicles/vin/diagnostics": {
       "get": {
         "tags": [
           "GetDiagnostics"
@@ -2642,7 +2642,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/doors": {
+    "/v1/vehicles/vin/doors": {
       "get": {
         "tags": [
           "GetDoorAndLockStatus"
@@ -2848,7 +2848,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/engine": {
+    "/v1/vehicles/vin/engine": {
       "get": {
         "tags": [
           "GetEngineDiagnostics"
@@ -3039,7 +3039,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/engine-status": {
+    "/v1/vehicles/vin/engine-status": {
       "get": {
         "tags": [
           "GetEngineStatus"
@@ -3217,7 +3217,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/environment": {
+    "/v1/vehicles/vin/environment": {
       "get": {
         "tags": [
           "GetEnvironmentVals"
@@ -3396,7 +3396,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/fuel": {
+    "/v1/vehicles/vin/fuel": {
       "get": {
         "tags": [
           "GetFuelAmount"
@@ -3575,7 +3575,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/odometer": {
+    "/v1/vehicles/vin/odometer": {
       "get": {
         "tags": [
           "GetOdometer"
@@ -3754,7 +3754,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/requests": {
+    "/v1/vehicles/vin/requests": {
       "get": {
         "tags": [
           "Command-Request-List"
@@ -3960,7 +3960,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/requests/search": {
+    "/v1/vehicles/vin/requests/search": {
       "post": {
         "tags": [
           "Search-Command-Requests"
@@ -4185,7 +4185,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/requests/{id}": {
+    "/v1/vehicles/vin/requests/{id}": {
       "get": {
         "tags": [
           "Get-Request-Details"
@@ -4375,7 +4375,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/statistics": {
+    "/v1/vehicles/vin/statistics": {
       "get": {
         "tags": [
           "GetStatistics"
@@ -4574,7 +4574,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/tyres": {
+    "/v1/vehicles/vin/tyres": {
       "get": {
         "tags": [
           "GetTyrePressureValues"
@@ -4764,7 +4764,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/warnings": {
+    "/v1/vehicles/vin/warnings": {
       "get": {
         "tags": [
           "GetWarnings"
@@ -4942,7 +4942,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/windows": {
+    "/v1/vehicles/vin/windows": {
       "get": {
         "tags": [
           "GetWindowStatus"
@@ -5132,7 +5132,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/commands/navi-point-of-interest": {
+    "/v1/vehicles/vin/commands/navi-point-of-interest": {
       "post": {
         "tags": [
           "Invoke-Navi-Point-Of-Interest"
@@ -5334,7 +5334,7 @@
         }
       }
     },
-    "/v1/vehicles/{vin}/command-accessibility": {
+    "/v1/vehicles/vin/command-accessibility": {
       "get": {
         "tags": [
           "GetCommandsAccessibility"
