@@ -1,3 +1,18 @@
+const state = {
+  engineStarted: false,
+  outsideTemprature: 22,
+  locked: false,
+  climatization: false,
+  doorsOpened: false,
+  hasWarnings: false,
+};
+
+setInterval(() => {
+  state.outsideTemprature += Math.ceil(Math.random() * 10 - 5);
+  state.doorsOpened = Math.random() > 0.5;
+  state.hasWarnings = Math.random() > 0.5;
+}, 1000);
+
 const { call: volvoCall } = require('./api');
 
 let token = '';
@@ -66,8 +81,7 @@ exports.getFuelPercent = (vin) => {
  * @returns {number} outside temperature in celcius
  */
 exports.getOutsideTemperature = (vin) => {
-  return Math.ceil(Math.random() * 30);
-  // throw new Error('Not implemented'); // TODO API call
+  return state.outsideTemprature;
 };
 
 /**
@@ -76,8 +90,7 @@ exports.getOutsideTemperature = (vin) => {
  * @returns {boolean} true if climatization on
  */
 exports.isClimatizationOn = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  return state.climatization;
 };
 
 /**
@@ -86,8 +99,8 @@ exports.isClimatizationOn = (vin) => {
  * @returns {void} nothing
  */
 exports.turnOnClimatization = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  state.climatization = true;
+  return true;
 };
 
 /**
@@ -96,8 +109,8 @@ exports.turnOnClimatization = (vin) => {
  * @returns {void} nothing
  */
 exports.turnOffClimatization = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  state.climatization = false;
+  return true;
 };
 
 /**
@@ -106,8 +119,7 @@ exports.turnOffClimatization = (vin) => {
  * @returns {boolean} true if locked
  */
 exports.isVehicleLocked = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  return state.locked;
 };
 
 /**
@@ -116,8 +128,7 @@ exports.isVehicleLocked = (vin) => {
  * @returns {boolean} true if ON
  */
 exports.isFlashOn = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  return state.flash;
 };
 
 /**
@@ -126,8 +137,8 @@ exports.isFlashOn = (vin) => {
  * @returns {void} nothing
  */
 exports.lockVehicle = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  state.locked = true;
+  return true;
 };
 
 /**
@@ -136,8 +147,8 @@ exports.lockVehicle = (vin) => {
  * @returns {void} nothing
  */
 exports.unlockVehicle = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  state.locked = false;
+  return true;
 };
 
 /**
@@ -146,8 +157,7 @@ exports.unlockVehicle = (vin) => {
  * @returns {boolean} true if started
  */
 exports.isEngineStarted = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  return state.engineStarted;
 };
 
 /**
@@ -156,8 +166,8 @@ exports.isEngineStarted = (vin) => {
  * @returns {void} nothing
  */
 exports.startEngine = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  state.engineStarted = true;
+  return true;
 };
 
 /**
@@ -166,8 +176,8 @@ exports.startEngine = (vin) => {
  * @returns {void} nothing
  */
 exports.stopEngine = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  state.engineStarted = false;
+  return true;
 };
 
 /**
@@ -176,8 +186,8 @@ exports.stopEngine = (vin) => {
  * @returns {void} nothing
  */
 exports.honkAndFlash = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  // TODO: on/off/on/off/on/off flash
+  return true;
 };
 
 /**
@@ -186,8 +196,7 @@ exports.honkAndFlash = (vin) => {
  * @returns {boolean} true if open
  */
 exports.isAnyDoorOrWindowOpen = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  return state.doorsOpened;
 };
 
 /**
@@ -197,6 +206,5 @@ exports.isAnyDoorOrWindowOpen = (vin) => {
  * @returns {boolean} true if there is any warning
  */
 exports.isAnyWarning = (vin) => {
-  return Math.random() > 0.5;
-  // throw new Error('Not implemented'); // TODO API call
+  return state.hasWarnings;
 };

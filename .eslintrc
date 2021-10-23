@@ -20,6 +20,7 @@
     "no-console"             : 0,
     "valid-jsdoc"            : 2,
     "global-require"         : 0,
-    "no-restricted-syntax"   : 0
+    "no-restricted-syntax"   : 0,
+    "no-mixed-operators"     : 0
   }
 }
