@@ -1,6 +1,6 @@
 'use strict';
 
-const config  = require('./config');
+const config  = require('../config');
 const db      = require('./db');
 const utils   = require('./utils');
 const process = require('process');

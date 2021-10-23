@@ -7,7 +7,7 @@
 // through a process of the user granting access, and the client exchanging
 // the grant for an access token.
 
-const config      = require('./config');
+const config      = require('../config');
 const db          = require('./db');
 const login       = require('connect-ensure-login');
 const oauth2orize = require('oauth2orize');

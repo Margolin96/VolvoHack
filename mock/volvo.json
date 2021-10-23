@@ -1,0 +1,6381 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Connected Vehicle",
+    "description": "This API allows to get latest status, diagnostics and statistics data of a connected vehicle as well as providing functionalities to invoke designated actions towards the vehicle",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.volvocars.com/connected-vehicle"
+    }
+  ],
+  "paths": {
+    "/v1/vehicles": {
+      "get": {
+        "tags": [
+          "Vehicle-List"
+        ],
+        "summary": "Get Vehicle List",
+        "description": "Provides all current valid relations between a Volvo Id (user) and its connected vehicles. Returns a list of VINs. Required Scope(s):vehicle:attributes",
+        "operationId": "GetVehicleList",
+        "parameters": [
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehiclelist.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleListResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": [
+                    {
+                      "vin": "string"
+                    }
+                  ],
+                  "pagination": {
+                    "previous": "string",
+                    "next": "string",
+                    "limit": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}": {
+      "get": {
+        "tags": [
+          "Vehicle-Details"
+        ],
+        "summary": "Get Vehicle Details",
+        "description": "Provides details about the vehicle such as model, model-year etc. Required Scope(s):vehicle:attributes",
+        "operationId": "GetVehicleDetails",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicle.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDetailResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "modelYear": "string",
+                    "vin": "string",
+                    "externalColour": "string",
+                    "images": {
+                      "exteriorDefaultUrl": "string",
+                      "interiorDefaultUrl": "string"
+                    },
+                    "descriptions": {
+                      "model": "string",
+                      "upholstery": "string",
+                      "steering": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/brakes": {
+      "get": {
+        "tags": [
+          "GetBrakeStatus"
+        ],
+        "summary": "Get Brake Status",
+        "description": "Vehicle's Latest Brake Status Values like brake fluid level",
+        "operationId": "GetBrakeStatus",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrakeStatusResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "brakeFluid": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands": {
+      "get": {
+        "tags": [
+          "Command-List"
+        ],
+        "summary": "GetCommandList",
+        "description": "Used to list the commands which can be sent to the vehicle",
+        "operationId": "GetCommandList",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandlist.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandListResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": [
+                    {
+                      "command": "HONK_AND_FLASH",
+                      "href": "string"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/climatization-start": {
+      "post": {
+        "tags": [
+          "Invoke-Climatization-Start"
+        ],
+        "summary": "Invoke Climatization Start",
+        "description": "Used to send a climatization-start command to the vehicle.",
+        "operationId": "InvokeClimatizationStart",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.climatizationstart.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/climatization-stop": {
+      "post": {
+        "tags": [
+          "Invoke-Climatization-Stop"
+        ],
+        "summary": "Invoke Climatization Stop",
+        "description": "Used to send a climatization-stop command to the vehicle.",
+        "operationId": "InvokeClimatizationStop",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.climatizationstop.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/engine-start": {
+      "post": {
+        "tags": [
+          "Invoke-Engine-Start"
+        ],
+        "summary": "Invoke EngineStart",
+        "description": "Used to send a engine-start command to the vehicle.",
+        "operationId": "InvokeEngineStart",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Engine start action parameters like run-in-minutes",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.enginestart.v1+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EngineStartRequest"
+              },
+              "example": {
+                "runtimeMinutes": 0
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/engine-stop": {
+      "post": {
+        "tags": [
+          "Invoke-Engine-Stop"
+        ],
+        "summary": "Invoke EngineStop",
+        "description": "Used to send a engine-stop command to the vehicle.",
+        "operationId": "InvokeEngineStop",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.enginestop.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/flash": {
+      "post": {
+        "tags": [
+          "Invoke-Flash"
+        ],
+        "summary": "Invoke Flash",
+        "description": "Used to send a flash command to the vehicle.",
+        "operationId": "InvokeFlash",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.flash.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/honk": {
+      "post": {
+        "tags": [
+          "Invoke-Honk"
+        ],
+        "summary": "Invoke Honk",
+        "description": "Used to send a honk command to the vehicle.",
+        "operationId": "InvokeHonk",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.honk.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/honk-flash": {
+      "post": {
+        "tags": [
+          "Invoke-HonkAndFlash"
+        ],
+        "summary": "Invoke Honk And Flash",
+        "description": "Used to send a honk-and-flash command to the vehicle.",
+        "operationId": "InvokeHonkAndFlash",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.honkandflash.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/lock": {
+      "post": {
+        "tags": [
+          "Invoke-Lock"
+        ],
+        "summary": "Invoke Lock",
+        "description": "Used to send a lock command to the vehicle.",
+        "operationId": "InvokeLock",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Empty request body for this command.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.lock.v1+json": {}
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/unlock": {
+      "post": {
+        "tags": [
+          "Invoke-Unlock"
+        ],
+        "summary": "Invoke Unlock",
+        "description": "Used to send a unlock command to the vehicle.",
+        "operationId": "InvokeUnlock",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Unlock command parameters such as unlock-duration",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.unlock.v1+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnlockRequest"
+              },
+              "example": {
+                "unlockDuration": 0
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/diagnostics": {
+      "get": {
+        "tags": [
+          "GetDiagnostics"
+        ],
+        "summary": "Get Vehicle Diagnostics",
+        "description": "Vehicle's Latest Diagnostic Values",
+        "operationId": "GetDiagnostics",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "engineHoursToService": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "kmToService": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    },
+                    "mainBatteryStatus": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "monthsToService": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "serviceType": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "serviceStatus": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "serviceTrigger": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "backupBatteryRemaining": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "washerFluidLevel": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/doors": {
+      "get": {
+        "tags": [
+          "GetDoorAndLockStatus"
+        ],
+        "summary": "Get Door And Lock Status Values",
+        "description": "Vehicle's Door and Lock Status Values",
+        "operationId": "GetDoorAndLockStatus",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoorStatusResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "carLocked": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "rearRight": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "frontRight": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "frontLeft": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "rearLeft": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "cap": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "hood": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "tailGate": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/engine": {
+      "get": {
+        "tags": [
+          "GetEngineDiagnostics"
+        ],
+        "summary": "Get Engine Diagnostics",
+        "description": "Vehicle's Latest Engine Diagnostic Values such as engine-coolant-level, oil level etc.",
+        "operationId": "GetEngineDiagnostics",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngineDiagnosticResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "engineCoolantLevel": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "oilLevel": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "oilPressure": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "engineCoolantTemp": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/engine-status": {
+      "get": {
+        "tags": [
+          "GetEngineStatus"
+        ],
+        "summary": "Get Engine Status",
+        "description": "Vehicle's Latest Engine Status Value like RUNNING or STOPPED",
+        "operationId": "GetWindowStatus_1",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngineStatusResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "engineRunning": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/environment": {
+      "get": {
+        "tags": [
+          "GetEnvironmentVals"
+        ],
+        "summary": "Get Environment Values",
+        "description": "Environment Values such as external temperature collected by means of Vehicle sensors",
+        "operationId": "GetEnvironmentVals",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnvironmentResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "externalTemp": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/fuel": {
+      "get": {
+        "tags": [
+          "GetFuelAmount"
+        ],
+        "summary": "Get Latest Fuel Amount",
+        "description": "Vehicle's Latest Fuel Amount in Liters",
+        "operationId": "GetFuelAmount",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FuelAmountResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "fuelAmount": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/odometer": {
+      "get": {
+        "tags": [
+          "GetOdometer"
+        ],
+        "summary": "Get Vehicle's Latest Odometer Value",
+        "description": "Vehicle's latest odometer value in kilometers",
+        "operationId": "GetOdometer",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OdometerResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "odometer": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/requests": {
+      "get": {
+        "tags": [
+          "Command-Request-List"
+        ],
+        "summary": "ListCommandRequests",
+        "description": "Used to get a list of the active and past command-requests invoked against the vehicle.",
+        "operationId": "ListCommandRequests",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Format - int32. number of the items to display in each result set. Default is 50",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "example": null
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "an identifier to for the next page of the result",
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.requestlist.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandRequestListResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": [
+                    {
+                      "created": "string",
+                      "updated": "string",
+                      "command": "HONK_AND_FLASH",
+                      "requestId": "string",
+                      "invokeStatus": "WAITING",
+                      "href": "string"
+                    }
+                  ],
+                  "pagination": {
+                    "previous": "string",
+                    "next": "string",
+                    "limit": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/requests/search": {
+      "post": {
+        "tags": [
+          "Search-Command-Requests"
+        ],
+        "summary": "SearchCommandRequests",
+        "description": "Used to perform an advanced search through the command-requests",
+        "operationId": "SearchCommandRequests",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Format - int32. number of the items to display in each result set. Default is 50",
+            "schema": {
+              "type": "integer"
+            },
+            "example": null
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "an identifier to for the next page of the result",
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "request model encapsulating search filters such as request-ids, start-date and end-date",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.searchrequestlist.v1+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchCommandRequest"
+              },
+              "example": {
+                "commands": [
+                  "HONK_AND_FLASH"
+                ],
+                "startDate": "string",
+                "endDate": "string",
+                "ids": [
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.requestlist.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandRequestListResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": [
+                    {
+                      "created": "string",
+                      "updated": "string",
+                      "command": "HONK_AND_FLASH",
+                      "requestId": "string",
+                      "invokeStatus": "WAITING",
+                      "href": "string"
+                    }
+                  ],
+                  "pagination": {
+                    "previous": "string",
+                    "next": "string",
+                    "limit": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/requests/{id}": {
+      "get": {
+        "tags": [
+          "Get-Request-Details"
+        ],
+        "summary": "GetRequestDetails",
+        "description": "Used to get the details of the command referenced by the id parameter.",
+        "operationId": "GetRequestDetails",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "request identifier generated by Connected-Vehicle-API when the request has been received.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.requestdetailresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandRequestDetailResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "created": "string",
+                    "updated": "string",
+                    "command": "HONK_AND_FLASH",
+                    "requestId": "string",
+                    "invokeStatus": "WAITING",
+                    "href": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/statistics": {
+      "get": {
+        "tags": [
+          "GetStatistics"
+        ],
+        "summary": "Get Vehicle Statistics",
+        "description": "Vehicle's Latest Statistics such as average-speed, trip-meters",
+        "operationId": "GetStatistics",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "averageSpeed": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    },
+                    "distanceToEmpty": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    },
+                    "tripMeter1": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    },
+                    "tripMeter2": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    },
+                    "averageFuelConsumption": {
+                      "value": "string",
+                      "unit": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/tyres": {
+      "get": {
+        "tags": [
+          "GetTyrePressureValues"
+        ],
+        "summary": "Get Tyre Pressure Values",
+        "description": "Vehicle's Latest Tyre Pressure Values",
+        "operationId": "GetTyrePressureValues",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TyrePressureResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "frontLeft": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "frontRight": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "rearLeft": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "rearRight": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/warnings": {
+      "get": {
+        "tags": [
+          "GetWarnings"
+        ],
+        "summary": "Get Warnings",
+        "description": "Vehicle's Latest Warning Values like bulb failure",
+        "operationId": "GetWarnings",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WarningsResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "bulbFailure": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/windows": {
+      "get": {
+        "tags": [
+          "GetWindowStatus"
+        ],
+        "summary": "Get Window Status Values",
+        "description": "Vehicle's Latest Window Status Values",
+        "operationId": "GetWindowStatus",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WindowStatusResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "frontLeft": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "frontRight": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "rearLeft": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    },
+                    "rearRight": {
+                      "value": "string",
+                      "timestamp": 1599996619
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/commands/navi-point-of-interest": {
+      "post": {
+        "tags": [
+          "Invoke-Navi-Point-Of-Interest"
+        ],
+        "summary": "Navi-Point-Of-Interest",
+        "description": "Used to send a navigation-send command to the vehicle.",
+        "operationId": "InvokeNaviPointOfInterest",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The points of interest (POIs) to add.",
+          "content": {
+            "application/vnd.volvocars.api.connected-vehicle.navipointofinterest.v1+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendPoiToCarRequest"
+              },
+              "example": {
+                "pointsOfInterest": [
+                  {
+                    "latitude": 0,
+                    "longitude": 0,
+                    "name": "string",
+                    "phone": "string"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commandinvokeresponse.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "partial": {
+                    "currentStep": 0,
+                    "totalSteps": 0
+                  },
+                  "async": {
+                    "status": "string",
+                    "id": "string",
+                    "href": "string",
+                    "expires": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vehicles/{vin}/command-accessibility": {
+      "get": {
+        "tags": [
+          "GetCommandsAccessibility"
+        ],
+        "summary": "Get Commands Accessibility",
+        "description": " Vehicle's network accessibility to send invocation commands, such as if vehicle is available and the date until it's accessible. If the vehicle is not available then i has gone into sleep mode and it's not possible to send commands towards the vehicle. To be able to do so you need to start the vehicle again.",
+        "operationId": "GetCommandsAccessibility",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "description": "vehicle identifier (VIN)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": null
+          },
+          {
+            "name": "vcc-api-operationId",
+            "in": "header",
+            "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.volvocars.api.connected-vehicle.commands.accessibility.v1+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandAccessibilityResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "data": {
+                    "accessible": true,
+                    "accessibleUntil": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains an unaccepted input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": 0,
+                  "operationId": "string",
+                  "error": {
+                    "message": "string",
+                    "description": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "error": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "SearchCommandRequest": {
+        "type": "object",
+        "properties": {
+          "commands": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "HONK_AND_FLASH",
+                "HONK",
+                "FLASH",
+                "LOCK",
+                "UNLOCK",
+                "ENGINE_START",
+                "ENGINE_STOP",
+                "CLIMATIZATION_START",
+                "CLIMATIZATION_STOP",
+                "DASHBOARD",
+                "NAVIGATION",
+                "SEND_NAVI_POI"
+              ],
+              "type": "string"
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CommandRequestDetailItem": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "command": {
+            "enum": [
+              "HONK_AND_FLASH",
+              "HONK",
+              "FLASH",
+              "LOCK",
+              "UNLOCK",
+              "ENGINE_START",
+              "ENGINE_STOP",
+              "CLIMATIZATION_START",
+              "CLIMATIZATION_STOP",
+              "DASHBOARD",
+              "NAVIGATION",
+              "SEND_NAVI_POI"
+            ],
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          },
+          "invokeStatus": {
+            "enum": [
+              "WAITING",
+              "RUNNING",
+              "COMPLETED",
+              "REJECTED",
+              "UNKNOWN",
+              "TIMEOUT",
+              "CONNECTION_FAILURE",
+              "VEHICLE_IN_SLEEP",
+              "UNLOCK_TIME_FRAME_PASSED",
+              "UNABLE_TO_LOCK_DOOR_OPEN"
+            ],
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
+      "CommandRequestListResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommandRequestDetailItem"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "previous": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UnlockRequest": {
+        "type": "object",
+        "properties": {
+          "unlockDuration": {
+            "maximum": 120,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Time in seconds that the doors can be unlocked. Can maximum be set to 120 seconds",
+            "format": "int32"
+          }
+        }
+      },
+      "AsyncInfo": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AsyncResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "partial": {
+            "$ref": "#/components/schemas/Partial"
+          },
+          "async": {
+            "$ref": "#/components/schemas/AsyncInfo"
+          }
+        }
+      },
+      "Partial": {
+        "type": "object",
+        "properties": {
+          "currentStep": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSteps": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PointOfInterest": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "maxLength": 17,
+            "minLength": 3,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 17,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "SendPoiToCarRequest": {
+        "required": [
+          "pointsOfInterest"
+        ],
+        "type": "object",
+        "properties": {
+          "pointsOfInterest": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PointOfInterest"
+            }
+          }
+        }
+      },
+      "EngineStartRequest": {
+        "type": "object",
+        "properties": {
+          "runtimeMinutes": {
+            "maximum": 15,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Time in minutes engine will be running. Can be set to maximum 15 minutes",
+            "format": "int32"
+          }
+        }
+      },
+      "VehicleListItem": {
+        "type": "object",
+        "properties": {
+          "vin": {
+            "type": "string"
+          }
+        }
+      },
+      "VehicleListResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleListItem"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "DescriptionTexts": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string"
+          },
+          "upholstery": {
+            "type": "string"
+          },
+          "steering": {
+            "type": "string"
+          }
+        }
+      },
+      "VehicleDetailResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/VehicleMetadata"
+          }
+        }
+      },
+      "VehicleImages": {
+        "type": "object",
+        "properties": {
+          "exteriorDefaultUrl": {
+            "type": "string"
+          },
+          "interiorDefaultUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "VehicleMetadata": {
+        "type": "object",
+        "properties": {
+          "modelYear": {
+            "type": "string"
+          },
+          "vin": {
+            "type": "string"
+          },
+          "externalColour": {
+            "type": "string"
+          },
+          "images": {
+            "$ref": "#/components/schemas/VehicleImages"
+          },
+          "descriptions": {
+            "$ref": "#/components/schemas/DescriptionTexts"
+          }
+        }
+      },
+      "RInstance": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "unix timestamp value",
+            "format": "int64",
+            "example": "1599996619.0"
+          }
+        }
+      },
+      "WindowStatus": {
+        "type": "object",
+        "properties": {
+          "frontLeft": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "frontRight": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "rearLeft": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "rearRight": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "WindowStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WindowStatus"
+          }
+        }
+      },
+      "WarningVals": {
+        "type": "object",
+        "properties": {
+          "bulbFailure": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "WarningsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WarningVals"
+          }
+        }
+      },
+      "TyrePressure": {
+        "type": "object",
+        "properties": {
+          "frontLeft": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "frontRight": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "rearLeft": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "rearRight": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "TyrePressureResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TyrePressure"
+          }
+        }
+      },
+      "RInstanceWithUnit": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "unix timestamp value",
+            "format": "int64",
+            "example": "1599996619.0"
+          }
+        }
+      },
+      "StatisticResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/StatisticVals"
+          }
+        }
+      },
+      "StatisticVals": {
+        "type": "object",
+        "properties": {
+          "averageSpeed": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          },
+          "distanceToEmpty": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          },
+          "tripMeter1": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          },
+          "tripMeter2": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          },
+          "averageFuelConsumption": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          }
+        }
+      },
+      "CommandRequestDetailResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CommandRequestDetailItem"
+          }
+        }
+      },
+      "Odometer": {
+        "type": "object",
+        "properties": {
+          "odometer": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          }
+        }
+      },
+      "OdometerResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Odometer"
+          }
+        }
+      },
+      "Fuel": {
+        "type": "object",
+        "properties": {
+          "fuelAmount": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          }
+        }
+      },
+      "FuelAmountResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Fuel"
+          }
+        }
+      },
+      "EnvironmentResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/EnvironmentVals"
+          }
+        }
+      },
+      "EnvironmentVals": {
+        "type": "object",
+        "properties": {
+          "externalTemp": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          }
+        }
+      },
+      "EngineDiagnosticResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/EngineDiagnosticVals"
+          }
+        }
+      },
+      "EngineDiagnosticVals": {
+        "type": "object",
+        "properties": {
+          "engineCoolantLevel": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "oilLevel": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "oilPressure": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "engineCoolantTemp": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          }
+        }
+      },
+      "EngineStatus": {
+        "type": "object",
+        "properties": {
+          "engineRunning": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "EngineStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/EngineStatus"
+          }
+        }
+      },
+      "DoorAndLockStatus": {
+        "type": "object",
+        "properties": {
+          "carLocked": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "rearRight": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "frontRight": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "frontLeft": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "rearLeft": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "cap": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "hood": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "tailGate": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "DoorStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DoorAndLockStatus"
+          }
+        }
+      },
+      "DiagnosticResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DiagnosticVals"
+          }
+        }
+      },
+      "DiagnosticVals": {
+        "type": "object",
+        "properties": {
+          "engineHoursToService": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "kmToService": {
+            "$ref": "#/components/schemas/RInstanceWithUnit"
+          },
+          "mainBatteryStatus": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "monthsToService": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "serviceType": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "serviceStatus": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "serviceTrigger": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "backupBatteryRemaining": {
+            "$ref": "#/components/schemas/RInstance"
+          },
+          "washerFluidLevel": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "CommandListItem": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "enum": [
+              "HONK_AND_FLASH",
+              "HONK",
+              "FLASH",
+              "LOCK",
+              "UNLOCK",
+              "ENGINE_START",
+              "ENGINE_STOP",
+              "CLIMATIZATION_START",
+              "CLIMATIZATION_STOP",
+              "DASHBOARD",
+              "NAVIGATION",
+              "SEND_NAVI_POI"
+            ],
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
+      "CommandListResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommandListItem"
+            }
+          }
+        }
+      },
+      "CommandAccessibility": {
+        "type": "object",
+        "properties": {
+          "accessible": {
+            "type": "boolean"
+          },
+          "accessibleUntil": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CommandAccessibilityResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CommandAccessibility"
+          }
+        }
+      },
+      "BrakeStatus": {
+        "type": "object",
+        "properties": {
+          "brakeFluid": {
+            "$ref": "#/components/schemas/RInstance"
+          }
+        }
+      },
+      "BrakeStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/BrakeStatus"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "vcc-api-key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "vcc-api-key",
+        "in": "query"
+      },
+      "accessToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "A valid access token from the Volvo ID account service. See the Authorization Guide for details. The access token must have been issued on behalf of the current user."
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    },
+    {
+      "accessToken": []
+    }
+  ]
+}
