@@ -152,6 +152,23 @@ app.get('/volvo/*', (req, res) => {
   });
 });
 
-app.get('/alisa', (req, res) => {
+app.get('/alisa/v1.0', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.post('/alisa/v1.0/user/devices/action', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.post('/alisa/v1.0/user/devices/query', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.post('/alisa/v1.0/user/unlink', (req, res) => {
+  console.log(req);
+  res.status(200).send();
+});
+app.get('/alisa/v1.0/user/devices', (req, res) => {
+  console.log(req);
   res.status(200).send();
 });
