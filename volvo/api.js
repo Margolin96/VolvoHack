@@ -53,7 +53,7 @@ module.exports.routes = (app) => {
       fuelLevel: `${state.fuelLevel} из ${state.fuelTankCapacity} (${Math.floor(state.fuelLevel / state.fuelTankCapacity * 100)}%)`,
       engineStarted: state.engineStarted ? 'заведен' : 'выключен',
       outsideTemprature: state.outsideTemprature,
-      locked: state.locked ? 'закрыта' : 'открыта',
+      locked: state.locked ? 'закрыт' : 'открыт',
       climatization: state.climatization ? 'включен' : 'выключен',
       doorsOpened: state.doorsOpened ? 'открыты' : 'закрыты',
       windowsOpened: state.windowsOpened ? 'открыты' : 'закрыты',
