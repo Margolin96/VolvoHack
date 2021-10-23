@@ -31,9 +31,9 @@ exports.getDevicesList = async (requestId, userId) => {
  * @param {object} data request data
  * @returns {object} states object in Yandex format
  */
-exports.getDevicesState = (requestId, data) => {
+exports.getDevicesState = async (requestId, data) => {
   const deviceIds = data.devices.map(d => d.id);
-  const states = devicesState.getAllDevicesState(deviceIds);
+  const states = await devicesState.getAllDevicesState(deviceIds);
   return {
     request_id: requestId,
     payload: {

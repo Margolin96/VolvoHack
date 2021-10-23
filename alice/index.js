@@ -3,13 +3,13 @@ module.exports = (app) => {
     console.log(req.query, req.body);
     res.status(200).send();
   });
-  app.post('/alisa/v1.0/user/devices/action', (req, res) => {
+  app.post('/alisa/v1.0/user/devices/action', async (req, res) => {
     console.log(req.query, req.body);
     res.status(200).send();
   });
-  app.post('/alisa/v1.0/user/devices/query', (req, res) => {
-    console.log(req.query, req.body);
-    res.status(200).send();
+  app.post('/alisa/v1.0/user/devices/query', async (req, res) => {
+    const { getDevicesState } = require('./aliceHome');
+    res.status(200).send(await getDevicesState(req.headers['x-request-id'], req.body));
   });
   app.post('/alisa/v1.0/user/unlink', (req, res) => {
     console.log(req.query, req.body);

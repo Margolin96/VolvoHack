@@ -87,4 +87,10 @@ const getDeviceState = (deviceId) => {
  * @param {string[]} deviceIds list of device ids
  * @returns {array} state objects array
  */
-exports.getAllDevicesState = deviceIds => deviceIds.map(id => getDeviceState(id));
+exports.getAllDevicesState = async (deviceIds) => {
+  const devices = [];
+  for (const id of deviceIds) {
+    devices.push(await getDeviceState(id));
+  }
+  return devices;
+};
