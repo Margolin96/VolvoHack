@@ -1,8 +1,5 @@
 'use strict';
 
-const volvoApi = require('../volvo/volvoApi');
-const devicesInfo = require('../alice/devicesInfo');
-const devicesState = require('../alice/devicesState');
 const login    = require('connect-ensure-login');
 const passport = require('passport');
 
@@ -13,15 +10,8 @@ const passport = require('passport');
  * @returns {undefined}
  */
 exports.index = async (req, res) => {
-  const vehicles = await volvoApi.listAllVehicles();
-  const devices = [];
-
-  for (const vehicle of vehicles) {
-    devices.push(await devicesInfo.getVehicleDevices(vehicle.vin, vehicle.name));
-  }
-  const states = await devicesState.getAllDevicesState(devices.flat().map(d => d.id));
-
-  res.render('index', { states: JSON.stringify(states) });
+  const { state } = require('../volvo/volvoApi');
+  res.render('index', { state });
 };
 
 /**

@@ -42,7 +42,7 @@
                   "operationId": "string",
                   "data": [
                     {
-                      "vin": "string"
+                      "vin": "{vin}"
                     }
                   ],
                   "pagination": {

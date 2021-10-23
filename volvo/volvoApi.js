@@ -6,13 +6,15 @@ const state = {
   outsideTemprature: 22,
   locked: false,
   climatization: false,
+  windowsOpened: false,
   doorsOpened: false,
   warnings: {},
 };
+module.exports.state = state;
 
 setInterval(() => {
   // Fake data changing
-  state.outsideTemprature += Math.ceil(Math.random() * 10 - 5);
+  state.outsideTemprature += Math.ceil(Math.random() * 10 - 7);
   state.outsideTemprature = Math.max(30, state.outsideTemprature);
   state.doorsOpened = Math.random() > 0.5;
   state.warnings = Math.random() > 0.5 ? { warn: {} } : {};
@@ -65,6 +67,7 @@ const getVehicleParameters = () => ({
  * @returns {number} fuel level percent 0-100
  */
 exports.getFuelPercent = async (vin) => {
+  console.log(vin);
   if (!process.env.mock) state.fuelLevel = await volvo.get(`/v1/vehicles/${vin}/fuel`).fuelAmount.value;
 
   const { fuelTankCapacity } = getVehicleParameters(vin);

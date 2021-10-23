@@ -45,6 +45,21 @@ module.exports.api = async (url, method = 'get', data) => {
 };
 
 module.exports.routes = (app) => {
+  app.get('/state', (req, res) => {
+    const { state } = require('../volvo/volvoApi');
+
+    res.status(200).send({
+      fuelLevel: state.fuelLevel,
+      engineStarted: state.engineStarted ? 'заведен' : 'выключен',
+      outsideTemprature: state.outsideTemprature,
+      locked: state.locked ? 'закрыта' : 'открыта',
+      climatization: state.climatization ? 'включен' : 'выключен',
+      doorsOpened: state.doorsOpened ? 'открыты' : 'закрыты',
+      windowsOpened: state.windowsOpened ? 'открыты' : 'закрыты',
+      warnings: Object.keys(state.warnings).length,
+    });
+  });
+
   app.get('/volvo/*', async (req, res) => {
     const url = req.url.replace('/volvo', '');
     const method = req.method.toLowerCase();

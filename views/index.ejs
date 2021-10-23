@@ -4,11 +4,86 @@
   <title>Volvo car state</title>
   <!-- Needed for mobile sites to work -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-size: 14px;
+      line-height: 20px;
+      font-family: sans-serif;
+      margin: 0;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrapper {
+      border: 1px solid #E5E5E5;
+    }
+    div {
+      padding: 5px;
+    }
+    b {
+      font-size: 1.2em;
+      margin-left: 5px;
+    }
+    b:first-child {
+      margin-left: 0;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 
 <body>
 
-<%= states %>
+<div class="wrapper">
+  <div>
+    <span>Уровень заряда / топлива:</span>
+    <b class="fuelLevel"><%= state.fuelLevel %></b>
+  </div>
+  <div>
+    <span>Двигатель:</span>
+    <b class="engineStarted"><%= state.engineStarted ? 'заведен' : 'выключен' %></b>
+  </div>
+  <div>
+    <span>Температура за бортом:</span>
+    <b class="outsideTemprature"><%= state.outsideTemprature %></b>
+  </div>
+  <div>
+    <span>Центральный замок:</span>
+    <b class="locked"><%= state.locked ? 'закрыта' : 'открыта' %></b>
+  </div>
+  <div>
+    <span>Климат-контроль:</span>
+    <b class="climatization"><%= state.climatization ? 'включен' : 'выключен' %></b>
+  </div>
+  <div>
+    <span>Двери:</span>
+    <b class="doorsOpened"><%= state.doorsOpened ? 'открыты' : 'закрыты' %></b>
+  </div>
+  <div>
+    <span>Окна:</span>
+    <b class="windowsOpened"><%= state.windowsOpened ? 'открыты' : 'закрыты' %></b>
+  </div>
+  <!-- <div>
+    <span>Ошибок:</span>
+    <b class="warnings"><%= Object.keys(state.warnings).length %></b>
+  </div> -->
+</div>
+
+<script>
+
+async function reloadState() {
+  await fetch('/state').then(res => res.json()).then(res => {
+    Object.entries(res).forEach(([key, value]) => {
+      const node = document.querySelector(`.${key}`);
+      if (!node) return;
+      node.innerText = value;
+    });
+  });
+}
+setInterval(reloadState, 1000);
+
+</script>
 
 </body>
 </html>
