@@ -1,19 +1,23 @@
+const mock = true;
 const state = {
+  fuelLevel: 30,
   engineStarted: false,
   outsideTemprature: 22,
   locked: false,
   climatization: false,
   doorsOpened: false,
-  hasWarnings: false,
+  warnings: {},
 };
 
 setInterval(() => {
+  // Fake data changing
   state.outsideTemprature += Math.ceil(Math.random() * 10 - 5);
+  state.outsideTemprature = Math.max(30, state.outsideTemprature);
   state.doorsOpened = Math.random() > 0.5;
-  state.hasWarnings = Math.random() > 0.5;
+  state.warnings = Math.random() > 0.5 ? { warn: {} } : {};
 }, 1000);
 
-const { call: volvoCall } = require('./api');
+const volvo = require('./api');
 
 let token = '';
 let apiKey = '';
@@ -43,25 +47,15 @@ exports.init = () => {
  * Get all vehicles for current user, single user supported for demo
  * @returns {{vin: string, name: string}[]} vehicles list
  */
-exports.listAllVehicles = async () => await volvoCall('/v1/vehicles');
-  // GET - https://api.volvocars.com/connected-vehicle/v1/vehicles
-  // TODO API call
-  // for each VIN — GET - https://api.volvocars.com/connected-vehicle/v1/vehicles/{vin}
-  // return [
-  //   {
-  //     vin: 'test',
-  //     name: 'XC60', // data.descriptions.model + ' ' + data.externalColour
-  //   },
-  // ];
+exports.listAllVehicles = async () => await volvo.get('/v1/vehicles');
 
 /**
- * Get vehicle parameters object
+ * Get vehicle parameters object (Not presented in API)
  * @param {string} vin VIN
  * @returns {{fuelTankCapacity: number}} parameters object
  */
-const getVehicleParameters = vin => ({
-  // not presented in API right now, returns stab
-  fuelTankCapacity: 150,
+const getVehicleParameters = () => ({
+  fuelTankCapacity: 50,
 });
 
 /**
@@ -70,9 +64,11 @@ const getVehicleParameters = vin => ({
  * @returns {number} fuel level percent 0-100
  */
 exports.getFuelPercent = (vin) => {
-  const pars = getVehicleParameters(vin);
-  const fuelLevel = Math.random() * 100; // TODO API call
-  return Math.floor((fuelLevel / pars.fuelTankCapacity) * 100);
+  if (!mock) state.fuelLevel = volvo.get(`/v1/vehicles/${vin}/fuel`).fuelAmount.value;
+
+  const { fuelTankCapacity } = getVehicleParameters(vin);
+
+  return Math.floor((state.fuelLevel / fuelTankCapacity) * 100);
 };
 
 /**
@@ -81,17 +77,17 @@ exports.getFuelPercent = (vin) => {
  * @returns {number} outside temperature in celcius
  */
 exports.getOutsideTemperature = (vin) => {
+  if (!mock) state.outsideTemprature = volvo.get(`/v1/vehicles/${vin}/environment`).externalTemp.value;
+
   return state.outsideTemprature;
 };
 
 /**
- * Checks if climatization system ON or not
+ * Checks if climatization system ON or not (Not presented in API)
  * @param {string} vin VIN
  * @returns {boolean} true if climatization on
  */
-exports.isClimatizationOn = (vin) => {
-  return state.climatization;
-};
+exports.isClimatizationOn = () => state.climatization;
 
 /**
  * Turns climatization system ON
@@ -99,8 +95,9 @@ exports.isClimatizationOn = (vin) => {
  * @returns {void} nothing
  */
 exports.turnOnClimatization = (vin) => {
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/climatization-start`);
+
   state.climatization = true;
-  return true;
 };
 
 /**
@@ -109,8 +106,9 @@ exports.turnOnClimatization = (vin) => {
  * @returns {void} nothing
  */
 exports.turnOffClimatization = (vin) => {
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/climatization-stop`);
+
   state.climatization = false;
-  return true;
 };
 
 /**
@@ -119,17 +117,17 @@ exports.turnOffClimatization = (vin) => {
  * @returns {boolean} true if locked
  */
 exports.isVehicleLocked = (vin) => {
+  if (!mock) state.locked = volvo.get(`/v1/vehicles/${vin}/doors`).carLocked.value === 'LOCKED';
+
   return state.locked;
 };
 
 /**
- * Checks if headlights is ON or not
+ * Checks if headlights is ON or not (Not presented in API)
  * @param {string} vin VIN
  * @returns {boolean} true if ON
  */
-exports.isFlashOn = (vin) => {
-  return state.flash;
-};
+exports.isFlashOn = () => state.flash;
 
 /**
  * Send a lock command to the vehicle
@@ -137,8 +135,9 @@ exports.isFlashOn = (vin) => {
  * @returns {void} nothing
  */
 exports.lockVehicle = (vin) => {
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/lock`);
+
   state.locked = true;
-  return true;
 };
 
 /**
@@ -147,8 +146,9 @@ exports.lockVehicle = (vin) => {
  * @returns {void} nothing
  */
 exports.unlockVehicle = (vin) => {
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/unlock`);
+
   state.locked = false;
-  return true;
 };
 
 /**
@@ -157,6 +157,8 @@ exports.unlockVehicle = (vin) => {
  * @returns {boolean} true if started
  */
 exports.isEngineStarted = (vin) => {
+  if (!mock) state.engineStarted = volvo.get(`/v1/vehicles/${vin}/engine-status`).engineRunning.status === 'RUNNING';
+
   return state.engineStarted;
 };
 
@@ -166,8 +168,9 @@ exports.isEngineStarted = (vin) => {
  * @returns {void} nothing
  */
 exports.startEngine = (vin) => {
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/engine-start`);
+
   state.engineStarted = true;
-  return true;
 };
 
 /**
@@ -176,8 +179,9 @@ exports.startEngine = (vin) => {
  * @returns {void} nothing
  */
 exports.stopEngine = (vin) => {
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/engine-stop`);
+
   state.engineStarted = false;
-  return true;
 };
 
 /**
@@ -186,8 +190,7 @@ exports.stopEngine = (vin) => {
  * @returns {void} nothing
  */
 exports.honkAndFlash = (vin) => {
-  // TODO: on/off/on/off/on/off flash
-  return true;
+  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/honk-flash`);
 };
 
 /**
@@ -196,7 +199,10 @@ exports.honkAndFlash = (vin) => {
  * @returns {boolean} true if open
  */
 exports.isAnyDoorOrWindowOpen = (vin) => {
-  return state.doorsOpened;
+  if (!mock) state.windowsOpened = Object.values(volvo.get(`/v1/vehicles/${vin}/windows`)).some(v => v.value === 'OPEN');
+  if (!mock) state.doorsOpened = Object.values(volvo.get(`/v1/vehicles/${vin}/doors`)).some(v => v.value === 'UNLOCKED');
+
+  return state.doorsOpened || state.windowsOpened;
 };
 
 /**
@@ -206,5 +212,7 @@ exports.isAnyDoorOrWindowOpen = (vin) => {
  * @returns {boolean} true if there is any warning
  */
 exports.isAnyWarning = (vin) => {
-  return state.hasWarnings;
+  if (!mock) state.warnings = volvo.get(`/v1/vehicles/${vin}/warnings`);
+
+  return Object.keys(state.warnings).length;
 };
