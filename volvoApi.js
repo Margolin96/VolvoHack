@@ -1,4 +1,4 @@
-class VolvoApi {
+module.exports = class {
   /**
    * Class constructor, one instance per vehicle
    * @param {string} vin current vehicle VIN number as an identifier
@@ -79,7 +79,8 @@ class VolvoApi {
    * @returns {boolean} true if open
    */
   isAnyDoorOrWindowOpen() {
-    throw new Error('Not implemented'); // TODO API call
+    return Math.random() < 0.5;
+    // throw new Error('Not implemented'); // TODO API call
   }
 
   /**
@@ -88,6 +89,7 @@ class VolvoApi {
    * @returns {boolean} true if there is any warning
    */
   isAnyWarning() {
-    throw new Error('Not implemented'); // TODO API call
+    return Math.random() < 0.5;
+    // throw new Error('Not implemented'); // TODO API call
   }
-}
+};
