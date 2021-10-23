@@ -2,6 +2,7 @@ const getClimatizationDevice = async (vin, vehicleName) => ({
   id: `${vin}_climatization`,
   type: 'devices.types.thermostat',
   name: 'Обогрев в машине',
+  room: 'Машина',
   description: vehicleName,
   capabilities: [
     {
