@@ -111,6 +111,16 @@ exports.isVehicleLocked = (vin) => {
 };
 
 /**
+ * Checks if headlights is ON or not
+ * @param {string} vin VIN
+ * @returns {boolean} true if ON
+ */
+exports.isFlashOn = (vin) => {
+  return Math.random() > 0.5;
+  // throw new Error('Not implemented'); // TODO API call
+};
+
+/**
  * Send a lock command to the vehicle
  * @param {string} vin VIN
  * @returns {void} nothing

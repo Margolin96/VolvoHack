@@ -68,6 +68,22 @@ const getCentralLockState = (vin) => {
   };
 };
 
+const getFlashState = (vin) => {
+  const isFlashOn = api.isFlashOn(vin);
+  return {
+    id: `${vin}_flash`,
+    capabilities: [
+      {
+        type: 'devices.capabilities.on_off',
+        state: {
+          instance: 'on',
+          value: isFlashOn,
+        },
+      },
+    ],
+  };
+};
+
 const getDeviceState = (deviceId) => {
   const [vin, deviceType] = deviceId.split('_');
   switch (deviceType) {
@@ -77,6 +93,8 @@ const getDeviceState = (deviceId) => {
       return getEngineState(vin);
     case 'lock':
       return getCentralLockState(vin);
+    case 'flash':
+      return getFlashState(vin);
     default:
       throw new Error(`Unknown device type: ${deviceType}`);
   }
