@@ -50,7 +50,7 @@ module.exports.routes = (app) => {
     const { state } = require('../volvo/volvoApi');
 
     res.status(200).send({
-      fuelLevel: `${state.fuelLevel} / ${state.fuelTankCapacity} (${Math.floor(state.fuelLevel / state.fuelTankCapacity * 100)})`,
+      fuelLevel: `${state.fuelLevel} из ${state.fuelTankCapacity} (${Math.floor(state.fuelLevel / state.fuelTankCapacity * 100)}%)`,
       engineStarted: state.engineStarted ? 'заведен' : 'выключен',
       outsideTemprature: state.outsideTemprature,
       locked: state.locked ? 'закрыта' : 'открыта',
