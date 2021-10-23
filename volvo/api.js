@@ -8,6 +8,7 @@ module.exports.get = url => module.exports.call(url, 'GET');
 module.exports.post = url => module.exports.call(url, 'POST');
 
 module.exports.call = (url, method = 'get') => {
+  console.log('mock', url, method);
   const _method = method.toLowerCase();
 
   if (!(url in mock.paths)) {
