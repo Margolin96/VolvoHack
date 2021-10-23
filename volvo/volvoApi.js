@@ -56,7 +56,7 @@ const getVehicleParameters = vin => ({
  */
 exports.getFuelPercent = (vin) => {
   const pars = getVehicleParameters(vin);
-  const fuelLevel = 0; // TODO API call
+  const fuelLevel = Math.random() * 100; // TODO API call
   return Math.floor((fuelLevel / pars.fuelTankCapacity) * 100);
 };
 
