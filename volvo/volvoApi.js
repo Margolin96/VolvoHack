@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const state = {
+  flash: false,
   fuelLevel: 30,
   fuelTankCapacity: 50,
   engineStarted: false,
@@ -15,11 +16,13 @@ module.exports.state = state;
 
 setInterval(() => {
   // Fake data changing
-  state.outsideTemprature += Math.ceil(Math.random() * 10 - 7);
-  state.outsideTemprature = Math.max(30, state.outsideTemprature);
   state.doorsOpened = Math.random() > 0.5;
   state.warnings = Math.random() > 0.5 ? { warn: {} } : {};
-}, 1000);
+}, 10000);
+setInterval(() => {
+  state.outsideTemprature += Math.ceil(Math.random() * 10 - 7) / 3;
+  state.outsideTemprature = Math.max(30, state.outsideTemprature);
+}, 5000);
 
 const volvo = require('./api');
 

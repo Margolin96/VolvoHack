@@ -98,12 +98,16 @@ const findOnOffCapability = (deviceData) => {
  * @param {object} data request data
  * @returns {object} new state results object in Yandex format
  */
-exports.setOnOffDevicesStates = (requestId, data) => {
+exports.setOnOffDevicesStates = async (requestId, data) => {
   const newDeviceStates = data.payload ? data.payload.devices : []
     .map(d => findOnOffCapability(d))
     .filter(d => !!d);
 
-  const setStateResults = newDeviceStates.map(d => setOnOffDeviceState(d.id, d.value));
+  const setStateResults = [];
+  for (const d of newDeviceStates) {
+    setStateResults.push(await setOnOffDeviceState(d.id, d.value));
+  }
+
   return {
     request_id: requestId,
     payload: {
