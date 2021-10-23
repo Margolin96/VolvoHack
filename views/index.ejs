@@ -138,13 +138,9 @@
 
 <!-- Main code screen with no URL fragments -->
 <div id="main" style="display: none;">
-  <h1>OAuth2orizeRecipes Server</h1>
+  <h1>OAuth2 Server</h1>
 
   <p>
-    <!-- Welcome message -->
-    Welcome to OAuth 2.0. Try one of the grant types below. For more information, see the
-    <a href="https://github.com/FrankHassanabad/Oauth2orizeRecipes/wiki">wiki site</a>.<br/>
-
     <!-- Authorization Code grant -->
 
   <h2><a href="http://tools.ietf.org/html/rfc6749#section-4.1">Authorization Code</a><br/></h2>
@@ -152,7 +148,7 @@
   confidential clients. Click the link below to begin the grant type.
   <a id="authcode" href="">
                 <pre>
-  <span class="hostname">https://localhost:3000</span>/dialog/authorize?
+  <span class="hostname"></span>/dialog/authorize?
   redirect_uri=<span class="hostname">https://localhost:3000</span>&
   response_type=code&
   client_id=abc123&
@@ -169,7 +165,7 @@
   the grant type.
   <a id="implicit" href="">
             <pre>
-  <span class="hostname">https://localhost:3000/</span>/dialog/authorize?
+  <span class="hostname"></span>/dialog/authorize?
   redirect_uri=<span class="hostname">https://localhost:3000</span>&
   response_type=token&
   client_id=abc123

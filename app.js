@@ -1,20 +1,20 @@
 'use strict';
 
 const bodyParser = require('body-parser');
-const client = require('./client');
+const client = require('./oauth/client');
 const cookieParser = require('cookie-parser');
 const config = require('./config');
-const db = require('./db');
+const db = require('./oauth/db');
 const express = require('express');
 const expressSession = require('express-session');
 // const fs             = require('fs');
 // const https          = require('https');
-const oauth2 = require('./oauth2');
+const oauth2 = require('./oauth/oauth2');
 const passport = require('passport');
 const path = require('path');
 const site = require('./site');
-const token = require('./token');
-const user = require('./user');
+const token = require('./oauth/token');
+const user = require('./oauth/user');
 
 console.log('Using MemoryStore for the data store');
 console.log('Using MemoryStore for the Session');
@@ -41,7 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport configuration
-require('./auth');
+require('./oauth/auth');
 
 app.get('/', site.index);
 app.get('/login', site.loginForm);
@@ -97,8 +97,8 @@ setInterval(() => {
 // openssl req -new -key privatekey.pem -out certrequest.csr
 // openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
 // const options = {
-//   key  : fs.readFileSync(path.join(__dirname, 'certs/privatekey.pem')),
-//   cert : fs.readFileSync(path.join(__dirname, 'certs/certificate.pem')),
+//   key  : process.env.certs_private_key,
+//   cert : process.env.certs_certificate,
 // };
 
 // Create our HTTPS server listening on port 3000.
