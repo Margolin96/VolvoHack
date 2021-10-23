@@ -44,6 +44,7 @@ exports.getDevicesState = async (requestId, data) => {
 
 const setOnOffDeviceState = async (deviceId, value) => {
   const [vin, deviceType] = deviceId.split('_');
+  console.log('action', deviceType, value);
   switch (deviceType) {
     case 'climatization':
       if (value) await volvoApi.turnOnClimatization(vin);

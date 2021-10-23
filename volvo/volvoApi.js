@@ -20,7 +20,7 @@ setInterval(() => {
   state.warnings = Math.random() > 0.5 ? { warn: {} } : {};
 }, 10000);
 setInterval(() => {
-  state.outsideTemprature += Math.ceil(Math.random() * 10 - 7) / 3;
+  state.outsideTemprature += Math.ceil((Math.random() * 10 - 7) / 3);
   state.outsideTemprature = Math.max(30, state.outsideTemprature);
 }, 5000);
 
