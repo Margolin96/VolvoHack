@@ -67,7 +67,6 @@ const getVehicleParameters = () => ({
  * @returns {number} fuel level percent 0-100
  */
 exports.getFuelPercent = async (vin) => {
-  console.log(vin);
   if (!process.env.mock) state.fuelLevel = await volvo.get(`/v1/vehicles/${vin}/fuel`).fuelAmount.value;
 
   const { fuelTankCapacity } = getVehicleParameters(vin);

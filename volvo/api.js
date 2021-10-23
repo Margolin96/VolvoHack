@@ -10,8 +10,8 @@ module.exports.post = url => module.exports.call(url, 'POST');
 module.exports.call = (url, method = 'get') => {
   const _method = method.toLowerCase();
 
-  if (!(url in mock.paths)) throw new Error('No such url');
-  if (!(_method in mock.paths[url])) throw new Error('No such method');
+  if (!(url in mock.paths)) return {}; // throw new Error('No such url');
+  if (!(_method in mock.paths[url])) return {}; // throw new Error('No such method');
 
   const responses = mock.paths[url][_method].responses['200'].content;
   return Object.entries(responses)[0][1].example.data;
