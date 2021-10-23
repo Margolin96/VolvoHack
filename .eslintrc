@@ -18,6 +18,7 @@
     "no-underscore-dangle"   : 0,
     "class-methods-use-this" : 0,
     "no-console"             : 0,
-    "valid-jsdoc"            : 2
+    "valid-jsdoc"            : 2,
+    "global-require"         : 0
   }
 }

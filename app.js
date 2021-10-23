@@ -169,6 +169,6 @@ app.post('/alisa/v1.0/user/unlink', (req, res) => {
   res.status(200).send();
 });
 app.get('/alisa/v1.0/user/devices', (req, res) => {
-  console.log(req.query, req.body);
-  res.status(200).send();
+  const { getDevicesList } = require('./alice/aliceHome');
+  res.status(200).send(getDevicesList(req.headers['X-Request-Id']));
 });
