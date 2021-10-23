@@ -88,7 +88,7 @@ const getHonkAndFlashDevice = (vin, vehicleName) => ({
   ],
 });
 
-const getVehicleDevices = (vin, vehicleName) => [
+exports.getVehicleDevices = (vin, vehicleName) => [
   getEngineDevice(vin, vehicleName),
   getClimatizationDevice(vin, vehicleName),
   getCentralLockDevice(vin, vehicleName),
