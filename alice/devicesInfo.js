@@ -1,7 +1,7 @@
 const getClimatizationDevice = (vin, vehicleName) => ({
   id: `${vin}_climatization`,
   type: 'devices.types.thermostat',
-  name: 'Климат-контроль в машине',
+  name: 'Обогрев в машине',
   description: vehicleName,
   capabilities: [
     {

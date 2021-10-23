@@ -1,6 +1,8 @@
+const api = require('../volvo/volvoApi');
+
 const getClimatizationState = (vin) => {
-  const isClimatizationOn = true; // TODO api call by VIN
-  const outsideTemperature = 44; // TODO api call by VIN
+  const isClimatizationOn = api.isClimatizationOn(vin);
+  const outsideTemperature = api.getOutsideTemperature(vin);
   return {
     id: `${vin}_climatization`,
     capabilities: [
@@ -25,8 +27,8 @@ const getClimatizationState = (vin) => {
 };
 
 const getEngineState = (vin) => {
-  const isEngineOn = true; // TODO api call by VIN
-  const fuelLevelPercent = 44; // TODO api call by VIN
+  const isEngineOn = api.isEngineStarted(vin);
+  const fuelLevelPercent = api.getFuelPercent(vin);
   return {
     id: `${vin}_engine`,
     capabilities: [
@@ -51,7 +53,7 @@ const getEngineState = (vin) => {
 };
 
 const getCentralLockState = (vin) => {
-  const isVehicleLocked = true; // TODO api call by VIN
+  const isVehicleLocked = api.isVehicleLocked(vin);
   return {
     id: `${vin}_lock`,
     capabilities: [
@@ -79,3 +81,5 @@ const getDeviceState = (deviceId) => {
       throw new Error(`Unknown device type: ${deviceType}`);
   }
 };
+
+exports.getAllDevicesState = deviceIds => deviceIds.map(id => getDeviceState(id));
