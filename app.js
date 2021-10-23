@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const bodyParser = require('body-parser');
 const client = require('./oauth/client');
 const cookieParser = require('cookie-parser');
@@ -15,6 +17,7 @@ const path = require('path');
 const site = require('./site');
 const token = require('./oauth/token');
 const user = require('./oauth/user');
+const utils = require('./oauth/utils');
 
 console.log('Using MemoryStore for the data store');
 console.log('Using MemoryStore for the Session');
@@ -121,4 +124,34 @@ setInterval(() => {
 app.get('/wakeup-bro', (req, res) => {
   console.log('[keepalive]: Thanks Bro!');
   res.send('I\'m OK!');
+});
+
+app.get('/volvo/*', (req, res) => {
+  const methodUrl = req.url.replace('/volvo/', '');
+  const volvoReq = {
+    method: req.method,
+    form: req.body,
+    uri: `https://api.volvocars.com/connected-vehicle/${methodUrl}`,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Expose-Headers': '*',
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${utils.createToken()}`,
+    },
+  };
+
+  request(volvoReq, (error, response) => {
+    if (error) {
+      console.log(methodUrl, error);
+      res.send(error);
+    }
+    console.log(methodUrl, response.body);
+    res.send(response.body);
+  });
+});
+
+app.get('/alisa', (req, res) => {
+  res.status(200).send();
 });
