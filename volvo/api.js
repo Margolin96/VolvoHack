@@ -1,7 +1,7 @@
+require('dotenv').config();
+
 const utils = require('../oauth/utils');
 const request = require('request');
-
-const config = require('dotenv').config().parsed;
 const mock = require('./mock.json');
 
 module.exports.get = url => module.exports.call(url, 'GET');
@@ -50,7 +50,7 @@ module.exports.routes = (app) => {
     const method = req.method.toLowerCase();
     const data = req.body;
 
-    res.send(config.mock
+    res.send(process.env.mock
       ? module.exports.call(url, method, data)
       : await module.exports.api(url, method, data));
   });
