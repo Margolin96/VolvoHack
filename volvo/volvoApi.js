@@ -1,4 +1,5 @@
-const mock = true;
+const config = require('dotenv').config().parsed;
+
 const state = {
   fuelLevel: 30,
   engineStarted: false,
@@ -63,8 +64,8 @@ const getVehicleParameters = () => ({
  * @param {string} vin VIN
  * @returns {number} fuel level percent 0-100
  */
-exports.getFuelPercent = (vin) => {
-  if (!mock) state.fuelLevel = volvo.get(`/v1/vehicles/${vin}/fuel`).fuelAmount.value;
+exports.getFuelPercent = async (vin) => {
+  if (!config.mock) state.fuelLevel = await volvo.get(`/v1/vehicles/${vin}/fuel`).fuelAmount.value;
 
   const { fuelTankCapacity } = getVehicleParameters(vin);
 
@@ -76,8 +77,8 @@ exports.getFuelPercent = (vin) => {
  * @param {string} vin VIN
  * @returns {number} outside temperature in celcius
  */
-exports.getOutsideTemperature = (vin) => {
-  if (!mock) state.outsideTemprature = volvo.get(`/v1/vehicles/${vin}/environment`).externalTemp.value;
+exports.getOutsideTemperature = async (vin) => {
+  if (!config.mock) state.outsideTemprature = await volvo.get(`/v1/vehicles/${vin}/environment`).externalTemp.value;
 
   return state.outsideTemprature;
 };
@@ -94,8 +95,8 @@ exports.isClimatizationOn = () => state.climatization;
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.turnOnClimatization = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/climatization-start`);
+exports.turnOnClimatization = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/climatization-start`);
 
   state.climatization = true;
 };
@@ -105,8 +106,8 @@ exports.turnOnClimatization = (vin) => {
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.turnOffClimatization = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/climatization-stop`);
+exports.turnOffClimatization = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/climatization-stop`);
 
   state.climatization = false;
 };
@@ -116,8 +117,8 @@ exports.turnOffClimatization = (vin) => {
  * @param {string} vin VIN
  * @returns {boolean} true if locked
  */
-exports.isVehicleLocked = (vin) => {
-  if (!mock) state.locked = volvo.get(`/v1/vehicles/${vin}/doors`).carLocked.value === 'LOCKED';
+exports.isVehicleLocked = async (vin) => {
+  if (!config.mock) state.locked = await volvo.get(`/v1/vehicles/${vin}/doors`).carLocked.value === 'LOCKED';
 
   return state.locked;
 };
@@ -134,8 +135,8 @@ exports.isFlashOn = () => state.flash;
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.lockVehicle = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/lock`);
+exports.lockVehicle = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/lock`);
 
   state.locked = true;
 };
@@ -145,8 +146,8 @@ exports.lockVehicle = (vin) => {
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.unlockVehicle = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/unlock`);
+exports.unlockVehicle = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/unlock`);
 
   state.locked = false;
 };
@@ -156,8 +157,8 @@ exports.unlockVehicle = (vin) => {
  * @param {string} vin VIN
  * @returns {boolean} true if started
  */
-exports.isEngineStarted = (vin) => {
-  if (!mock) state.engineStarted = volvo.get(`/v1/vehicles/${vin}/engine-status`).engineRunning.status === 'RUNNING';
+exports.isEngineStarted = async (vin) => {
+  if (!config.mock) state.engineStarted = await volvo.get(`/v1/vehicles/${vin}/engine-status`).engineRunning.status === 'RUNNING';
 
   return state.engineStarted;
 };
@@ -167,8 +168,8 @@ exports.isEngineStarted = (vin) => {
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.startEngine = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/engine-start`);
+exports.startEngine = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/engine-start`);
 
   state.engineStarted = true;
 };
@@ -178,8 +179,8 @@ exports.startEngine = (vin) => {
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.stopEngine = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/engine-stop`);
+exports.stopEngine = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/engine-stop`);
 
   state.engineStarted = false;
 };
@@ -189,8 +190,8 @@ exports.stopEngine = (vin) => {
  * @param {string} vin VIN
  * @returns {void} nothing
  */
-exports.honkAndFlash = (vin) => {
-  if (!mock) volvo.post(`/v1/vehicles/${vin}/commands/honk-flash`);
+exports.honkAndFlash = async (vin) => {
+  if (!config.mock) await volvo.post(`/v1/vehicles/${vin}/commands/honk-flash`);
 };
 
 /**
@@ -198,9 +199,9 @@ exports.honkAndFlash = (vin) => {
  * @param {string} vin VIN
  * @returns {boolean} true if open
  */
-exports.isAnyDoorOrWindowOpen = (vin) => {
-  if (!mock) state.windowsOpened = Object.values(volvo.get(`/v1/vehicles/${vin}/windows`)).some(v => v.value === 'OPEN');
-  if (!mock) state.doorsOpened = Object.values(volvo.get(`/v1/vehicles/${vin}/doors`)).some(v => v.value === 'UNLOCKED');
+exports.isAnyDoorOrWindowOpen = async (vin) => {
+  if (!config.mock) state.windowsOpened = Object.values(await volvo.get(`/v1/vehicles/${vin}/windows`)).some(v => v.value === 'OPEN');
+  if (!config.mock) state.doorsOpened = Object.values(await volvo.get(`/v1/vehicles/${vin}/doors`)).some(v => v.value === 'UNLOCKED');
 
   return state.doorsOpened || state.windowsOpened;
 };
@@ -211,8 +212,8 @@ exports.isAnyDoorOrWindowOpen = (vin) => {
  * @param {string} vin VIN
  * @returns {boolean} true if there is any warning
  */
-exports.isAnyWarning = (vin) => {
-  if (!mock) state.warnings = volvo.get(`/v1/vehicles/${vin}/warnings`);
+exports.isAnyWarning = async (vin) => {
+  if (!config.mock) state.warnings = await volvo.get(`/v1/vehicles/${vin}/warnings`);
 
   return Object.keys(state.warnings).length;
 };

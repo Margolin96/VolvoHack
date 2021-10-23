@@ -1,7 +1,7 @@
 const utils = require('../oauth/utils');
 const request = require('request');
 
-const { config } = require('dotenv');
+const config = require('dotenv').config().parsed;
 const mock = require('./mock.json');
 
 module.exports.get = url => module.exports.call(url, 'GET');
