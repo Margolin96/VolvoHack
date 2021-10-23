@@ -88,6 +88,12 @@ const getHonkAndFlashDevice = (vin, vehicleName) => ({
   ],
 });
 
+/**
+ * Get all smart home virtual devices for specific vehicle
+ * @param {string} vin VIN
+ * @param {string} vehicleName vehicle name
+ * @returns {array} all device objects list
+ */
 exports.getVehicleDevices = (vin, vehicleName) => [
   getEngineDevice(vin, vehicleName),
   getClimatizationDevice(vin, vehicleName),

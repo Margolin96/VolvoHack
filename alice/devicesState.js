@@ -82,4 +82,9 @@ const getDeviceState = (deviceId) => {
   }
 };
 
+/**
+ * Get current states for some devices
+ * @param {string[]} deviceIds list of device ids
+ * @returns {array} state objects array
+ */
 exports.getAllDevicesState = deviceIds => deviceIds.map(id => getDeviceState(id));

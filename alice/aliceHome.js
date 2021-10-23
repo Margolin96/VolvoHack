@@ -26,7 +26,7 @@ exports.getDevicesList = (requestId, userId) => {
 /**
  * Get state for each requested device
  * @param {string} requestId request identifier
- * @param {json} data request data
+ * @param {object} data request data
  * @returns {object} states object in Yandex format
  */
 exports.getDevicesState = (requestId, data) => {
@@ -93,8 +93,8 @@ const findOnOffCapability = (deviceData) => {
 /**
  * Set new devices states
  * @param {string} requestId request identifier
- * @param {json} data request data
- * @returns {json} new state results object in Yandex format
+ * @param {object} data request data
+ * @returns {object} new state results object in Yandex format
  */
 exports.setOnOffDevicesStates = (requestId, data) => {
   const newDeviceStates = data.payload.devices
