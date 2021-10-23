@@ -1,7 +1,7 @@
 const getClimatizationDevice = async (vin, vehicleName) => ({
   id: `${vin}_climatization`,
   type: 'devices.types.thermostat',
-  name: 'Обогрев в машине',
+  name: 'Обогрев',
   room: 'Машина',
   description: vehicleName,
   capabilities: [
@@ -30,7 +30,8 @@ const getClimatizationDevice = async (vin, vehicleName) => ({
 const getEngineDevice = async (vin, vehicleName) => ({
   id: `${vin}_engine`,
   type: 'devices.types.other',
-  name: 'Машина',
+  name: 'Двигатель',
+  room: 'Машина',
   description: vehicleName,
   capabilities: [
     {
@@ -58,7 +59,8 @@ const getEngineDevice = async (vin, vehicleName) => ({
 const getCentralLockDevice = async (vin, vehicleName) => ({
   id: `${vin}_lock`,
   type: 'devices.types.openable',
-  name: 'Замок в машине',
+  name: 'Замок',
+  room: 'Машина',
   description: vehicleName,
   capabilities: [
     {
@@ -75,7 +77,8 @@ const getCentralLockDevice = async (vin, vehicleName) => ({
 const getHonkAndFlashDevice = async (vin, vehicleName) => ({
   id: `${vin}_flash`,
   type: 'devices.types.light',
-  name: 'Фары и сигнал машине',
+  name: 'Фары и сигнал',
+  room: 'Машина',
   description: vehicleName,
   capabilities: [
     {
