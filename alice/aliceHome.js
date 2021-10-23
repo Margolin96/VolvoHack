@@ -105,7 +105,10 @@ exports.setOnOffDevicesStates = async (requestId, data) => {
 
   const setStateResults = [];
   for (const d of newDeviceStates) {
-    setStateResults.push(await setOnOffDeviceState(d.id, d.capabilities[0].state.value));
+    const cap = d.capabilities.find(v => v.type === 'devices.capabilities.on_off');
+    if (cap) {
+      setStateResults.push(await setOnOffDeviceState(d.id, cap.state.value));
+    }
   }
 
   return {
