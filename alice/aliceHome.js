@@ -34,7 +34,6 @@ exports.getDevicesList = async (requestId, userId) => {
 exports.getDevicesState = async (requestId, data) => {
   const deviceIds = data.devices.map(d => d.id);
   const states = await devicesState.getAllDevicesState(deviceIds);
-  console.log(JSON.stringify(states, null, 2));
   return {
     request_id: requestId,
     payload: {

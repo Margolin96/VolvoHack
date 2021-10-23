@@ -11,14 +11,8 @@ module.exports.call = (url, method = 'get') => {
   console.log('mock', url, method);
   const _method = method.toLowerCase();
 
-  if (!(url in mock.paths)) {
-    console.log(url, Object.keys(mock.paths));
-    return null; // throw new Error('No such url');
-  }
-  if (!(_method in mock.paths[url])) {
-    console.log(_method, Object.keys(mock.paths[url]));
-    return null; // throw new Error('No such method');
-  }
+  if (!(url in mock.paths)) throw new Error('No such url');
+  if (!(_method in mock.paths[url])) throw new Error('No such method');
 
   const responses = mock.paths[url][_method].responses['200'].content;
   return Object.entries(responses)[0][1].example.data;
@@ -56,7 +50,7 @@ module.exports.routes = (app) => {
     const { state } = require('../volvo/volvoApi');
 
     res.status(200).send({
-      fuelLevel: state.fuelLevel,
+      fuelLevel: `${state.fuelLevel} / ${state.fuelTankCapacity} (${Math.floor(state.fuelLevel / state.fuelTankCapacity * 100)})`,
       engineStarted: state.engineStarted ? 'заведен' : 'выключен',
       outsideTemprature: state.outsideTemprature,
       locked: state.locked ? 'закрыта' : 'открыта',

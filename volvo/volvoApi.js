@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const state = {
   fuelLevel: 30,
+  fuelTankCapacity: 50,
   engineStarted: false,
   outsideTemprature: 22,
   locked: false,
@@ -58,7 +59,7 @@ exports.listAllVehicles = async () => await volvo.get('/v1/vehicles');
  * @returns {{fuelTankCapacity: number}} parameters object
  */
 const getVehicleParameters = () => ({
-  fuelTankCapacity: 50,
+  fuelTankCapacity: state.fuelTankCapacity,
 });
 
 /**
