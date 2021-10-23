@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
   }
   const states = await devicesState.getAllDevicesState(devices.flat().map(d => d.id));
 
-  res.render('index', { states });
+  res.render('index', { states: JSON.stringify(states) });
 };
 
 /**
