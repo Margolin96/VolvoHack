@@ -170,7 +170,5 @@ app.post('/alisa/v1.0/user/unlink', (req, res) => {
 });
 app.get('/alisa/v1.0/user/devices', (req, res) => {
   const { getDevicesList } = require('./alice/aliceHome');
-  const list = getDevicesList(req.headers['x-request-id'], 'volvohack');
-  console.log(list);
-  res.status(200).send(list);
+  res.status(200).send(getDevicesList(req.headers['x-request-id'], 'volvohack'));
 });
