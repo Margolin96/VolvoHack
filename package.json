@@ -28,7 +28,7 @@
     "uuid": "^3.0.1"
   },
   "scripts": {
-    "lint": "eslint *.js config db test",
+    "lint": "eslint *.js config oauth views public volvo alice",
     "start": "node app.js",
     "test": "mocha test test/db test/config",
     "test:watch": "npm run test -- --watch",
