@@ -7,7 +7,6 @@ const db = require('./db');
 const expressSession = require('express-session');
 const oauth2 = require('./oauth2');
 const passport = require('passport');
-const path = require('path');
 const site = require('./site');
 const token = require('./token');
 const user = require('./user');
@@ -59,9 +58,6 @@ module.exports = (app) => {
   // Mimicking google's token revoke endpoint from
   // https://developers.google.com/identity/protocols/OAuth2WebServer
   app.get('/api/revoke', token.revoke);
-
-  // static resources for stylesheets, images, javascript files
-  app.use('/static', express.static(path.join(__dirname, 'public')));
 
   // Catch all for error messages.  Instead of a stack
   // trace, this will log the json of the error message
