@@ -1,3 +1,5 @@
+![Alice](https://volvohack.herokuapp.com/static/alice.png)
+
 # Возможности
 
 ## Управление двигателем
@@ -24,7 +26,6 @@
 # Эндпоинты
 
 ## Умный дом Яндекс
-![Alice](https://volvohack.herokuapp.com/static/alice.png)
 | Метод | Ресурс | Описание |
 |-|-|-|
 |HEAD|`/alisa/v1.0`                    |Проверка доступности Endpoint URL провайдера|
