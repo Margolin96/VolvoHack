@@ -24,6 +24,7 @@
 # Эндпоинты
 
 ## Умный дом Яндекс
+![Alice](https://volvohack.heroku.app/static/alice.png)
 | Метод | Ресурс | Описание |
 |-|-|-|
 |HEAD|`/alisa/v1.0`                    |Проверка доступности Endpoint URL провайдера|

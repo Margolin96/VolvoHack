@@ -61,7 +61,7 @@ module.exports = (app) => {
   app.get('/api/revoke', token.revoke);
 
   // static resources for stylesheets, images, javascript files
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/static', express.static(path.join(__dirname, 'public')));
 
   // Catch all for error messages.  Instead of a stack
   // trace, this will log the json of the error message
