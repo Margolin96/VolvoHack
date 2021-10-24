@@ -49,16 +49,51 @@ module.exports.routes = (app) => {
   app.get('/state', (req, res) => {
     const { state } = require('../volvo/volvoApi');
 
-    res.status(200).send({
-      fuelLevel: `${state.fuelLevel} из ${state.fuelTankCapacity} (${Math.floor(state.fuelLevel / state.fuelTankCapacity * 100)}%)`,
-      engineStarted: state.engineStarted ? 'заведен' : 'выключен',
-      outsideTemprature: state.outsideTemprature,
-      locked: state.locked ? 'закрыт' : 'открыт',
-      climatization: state.climatization ? 'включен' : 'выключен',
-      doorsOpened: state.doorsOpened ? 'открыты' : 'закрыты',
-      windowsOpened: state.windowsOpened ? 'открыты' : 'закрыты',
-      warnings: Object.keys(state.warnings).length,
-    });
+    const fuelLevelPercent = Math.floor(state.fuelLevel / state.fuelTankCapacity * 100);
+    const fuelLevel = `${state.fuelLevel} из ${state.fuelTankCapacity} (${fuelLevelPercent}%)`;
+    let fuelLevelColor = '';
+    switch (true) {
+      case fuelLevelPercent < 15: fuelLevelColor = 'red'; break;
+      case fuelLevelPercent < 40: fuelLevelColor = 'yellow'; break;
+      default: fuelLevelColor = 'green';
+    }
+    const warnings = Object.keys(state.warnings).length;
+    const _state = {
+      fuelLevel: {
+        value: fuelLevel,
+        color: fuelLevelColor,
+      },
+      engineStarted: {
+        value: state.engineStarted ? 'заведен' : 'выключен',
+        color: state.engineStarted ? 'green' : 'gray',
+      },
+      outsideTemprature: {
+        value: state.outsideTemprature,
+        color: '',
+      },
+      locked: {
+        value: state.locked ? 'закрыт' : 'открыт',
+        color: state.locked ? 'green' : 'gray',
+      },
+      climatization: {
+        value: state.climatization ? 'включен' : 'выключен',
+        color: state.climatization ? 'green' : 'gray',
+      },
+      doorsOpened: {
+        value: state.doorsOpened ? 'открыты' : 'закрыты',
+        color: state.doorsOpened ? 'red' : 'green',
+      },
+      windowsOpened: {
+        value: state.windowsOpened ? 'открыты' : 'закрыты',
+        color: state.windowsOpened ? 'red' : 'green',
+      },
+      warnings: {
+        value: warnings.length,
+        color: warnings.length ? 'red' : 'grey',
+      },
+    };
+
+    res.status(200).send(_state);
   });
 
   app.get('/volvo/*', async (req, res) => {
@@ -76,10 +111,59 @@ module.exports.routes = (app) => {
     addFuel();
     res.status(200).send();
   });
-
   app.get('/subtractFuel', async (req, res) => {
     const { subtractFuel } = require('./volvoApi');
     subtractFuel();
+    res.status(200).send();
+  });
+  app.get('/engineOn', async (req, res) => {
+    const { startEngine } = require('./volvoApi');
+    startEngine();
+    res.status(200).send();
+  });
+  app.get('/engineOff', async (req, res) => {
+    const { stopEngine } = require('./volvoApi');
+    stopEngine();
+    res.status(200).send();
+  });
+  app.get('/lockOn', async (req, res) => {
+    const { lockVehicle } = require('./volvoApi');
+    lockVehicle();
+    res.status(200).send();
+  });
+  app.get('/lockOff', async (req, res) => {
+    const { unlockVehicle } = require('./volvoApi');
+    unlockVehicle();
+    res.status(200).send();
+  });
+  app.get('/climateOn', async (req, res) => {
+    const { turnOnClimatization } = require('./volvoApi');
+    turnOnClimatization();
+    res.status(200).send();
+  });
+  app.get('/climateOff', async (req, res) => {
+    const { turnOffClimatization } = require('./volvoApi');
+    turnOffClimatization();
+    res.status(200).send();
+  });
+  app.get('/doorOpen', async (req, res) => {
+    const { doorOpen } = require('./volvoApi');
+    doorOpen();
+    res.status(200).send();
+  });
+  app.get('/doorClose', async (req, res) => {
+    const { doorClose } = require('./volvoApi');
+    doorClose();
+    res.status(200).send();
+  });
+  app.get('/windowOpen', async (req, res) => {
+    const { windowOpen } = require('./volvoApi');
+    windowOpen();
+    res.status(200).send();
+  });
+  app.get('/windowClose', async (req, res) => {
+    const { windowClose } = require('./volvoApi');
+    windowClose();
     res.status(200).send();
   });
 };

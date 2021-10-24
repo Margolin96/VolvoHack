@@ -18,6 +18,7 @@
     }
     .wrapper {
       border: 1px solid #E5E5E5;
+      min-width: 330px;
     }
     div {
       padding: 5px;
@@ -25,10 +26,29 @@
     b {
       font-size: 1.2em;
       margin-left: 5px;
+      color: #BBB;
     }
     b:first-child {
       margin-left: 0;
       margin-right: 5px;
+    }
+    [color=yellow] { color: #f1c40f; }
+    [color=green] { color: #e67e22; }
+    [color=red] { color: #F00; }
+    [color=grey] { color: grey; }
+    .actions {
+      display: flex;
+      padding: 5px 0;
+      justify-content: start;
+    }
+    .actions a {
+      font-size: 13px;
+      line-height: 16px;
+      color: #3498DB;
+      margin-right: 15px;
+    }
+    .actions a:hover {
+      text-decoration: none;
     }
   </style>
 </head>
@@ -39,50 +59,85 @@
   <div>
     <span>Уровень заряда / топлива:</span>
     <b class="fuelLevel"><%= state.fuelLevel %></b>
+    <div class="actions">
+      <a href="/subtractFuel">Слить 3 литра</a>
+      <a href="/addFuel">Заправить 3 литра</a>
+    </div>
   </div>
   <div>
     <span>Двигатель:</span>
     <b class="engineStarted"><%= state.engineStarted ? 'заведен' : 'выключен' %></b>
-  </div>
-  <div>
-    <span>Температура за бортом:</span>
-    <b class="outsideTemprature"><%= state.outsideTemprature %></b>
+    <div class="actions">
+      <a href="/engineOn">Завести</a>
+      <a href="/engineOff">Заглушить</a>
+    </div>
   </div>
   <div>
     <span>Центральный замок:</span>
     <b class="locked"><%= state.locked ? 'закрыт' : 'открыт' %></b>
+    <div class="actions">
+      <a href="/lockOn">Закрыть</a>
+      <a href="/lockOff">Открыть</a>
+    </div>
   </div>
   <div>
     <span>Климат-контроль:</span>
     <b class="climatization"><%= state.climatization ? 'включен' : 'выключен' %></b>
+    <div class="actions">
+      <a href="/climateOn">Включить</a>
+      <a href="/climateOff">Выключить</a>
+    </div>
   </div>
   <div>
     <span>Двери:</span>
     <b class="doorsOpened"><%= state.doorsOpened ? 'открыты' : 'закрыты' %></b>
+    <div class="actions">
+      <a href="/doorOpen">Открыть</a>
+      <a href="/doorClose">Закрыть</a>
+    </div>
   </div>
   <div>
     <span>Окна:</span>
     <b class="windowsOpened"><%= state.windowsOpened ? 'открыты' : 'закрыты' %></b>
+    <div class="actions">
+      <a href="/windowOpen">Открыть</a>
+      <a href="/windowClose">Закрыть</a>
+    </div>
   </div>
   <!-- <div>
     <span>Ошибок:</span>
     <b class="warnings"><%= Object.keys(state.warnings).length %></b>
   </div> -->
+  <div>
+    <span>Температура за бортом:</span>
+    <b class="outsideTemprature"><%= state.outsideTemprature %></b>
+  </div>
 </div>
 
 <script>
 
 async function reloadState() {
   await fetch('/state').then(res => res.json()).then(res => {
-    Object.entries(res).forEach(([key, value]) => {
+    Object.entries(res).forEach(([key, state]) => {
       const node = document.querySelector(`.${key}`);
       if (!node) return;
-      node.innerText = value;
+      node.innerText = state.value;
+      node.setAttribute('color', state.color);
     });
   });
 }
 reloadState();
 setInterval(reloadState, 1000);
+
+const actions = document.querySelectorAll('.actions a');
+actions.forEach(node => {
+  node.addEventListener('click', handleActionClick);
+});
+async function handleActionClick(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  await fetch(e.target.href);
+}
 
 </script>
 

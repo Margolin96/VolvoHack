@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const state = {
   flash: false,
-  fuelLevel: 30,
+  fuelLevel: 10,
   fuelTankCapacity: 50,
   engineStarted: false,
   outsideTemprature: 22,
@@ -16,12 +16,12 @@ module.exports.state = state;
 
 setInterval(() => {
   // Fake data changing
-  state.doorsOpened = Math.random() > 0.5;
+  // state.doorsOpened = Math.random() > 0.5;
   state.warnings = Math.random() > 0.5 ? { warn: {} } : {};
 }, 10000);
 setInterval(() => {
-  state.outsideTemprature += Math.ceil((Math.random() * 10 - 7) / 3);
-  state.outsideTemprature = Math.max(30, state.outsideTemprature);
+  state.outsideTemprature += Math.ceil((Math.random() * 10 - 5) / 3);
+  state.outsideTemprature = Math.min(23, state.outsideTemprature);
 }, 5000);
 
 const volvo = require('./api');
@@ -51,12 +51,24 @@ exports.init = () => {
 };
 
 exports.addFuel = async () => {
-  state.fuelLevel += 5;
+  state.fuelLevel += 3;
   state.fuelLevel = Math.min(state.fuelTankCapacity, state.fuelLevel);
 };
 exports.subtractFuel = async () => {
-  state.fuelLevel -= 5;
+  state.fuelLevel -= 3;
   state.fuelLevel = Math.max(0, state.fuelLevel);
+};
+exports.doorOpen = async () => {
+  state.doorsOpened = true;
+};
+exports.closeOpen = async () => {
+  state.doorsOpened = false;
+};
+exports.windowOpen = async () => {
+  state.windowsOpened = true;
+};
+exports.windowClose = async () => {
+  state.windowsOpened = false;
 };
 
 /**
